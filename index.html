@@ -1,641 +1,316 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0c" />
-  <title>Liquorland | San Juan Delivery</title>
-  <meta name="description" content="Liquorland — Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp. Carrito tipo app." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liquorland | Delivery San Juan</title>
 
-  <!-- Favicon inline (SVG) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b0c'/%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23d4af37'/%3E%3Ctext x='32' y='41' font-size='28' text-anchor='middle' fill='%230b0b0c' font-family='Arial' font-weight='900'%3EL%3C/text%3E%3C/svg%3E" />
-
-  <style>
-    :root{
-      --bg:#0b0b0c;
-      --panel: rgba(20,20,22,.75);
-      --card: rgba(20,20,22,.85);
-      --text:#ffffff;
-      --muted:#b9b9bf;
-      --line: rgba(255,255,255,.08);
-      --gold:#d4af37;
-      --gold2:#8b6b0f;
-      --good:#22c55e;
-      --bad:#ef4444;
-      --shadow: 0 18px 45px rgba(0,0,0,.42);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(212,175,55,.22), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(212,175,55,.12), transparent 60%),
-        radial-gradient(700px 500px at 70% 110%, rgba(212,175,55,.08), transparent 55%),
-        var(--bg);
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1140px;margin:0 auto;padding:14px 14px}
-    header{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter: blur(12px);
-      background: rgba(11,11,12,.74);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .top{
-      display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;gap:10px;align-items:center;min-width:220px;
-    }
-    .logo{
-      width:44px;height:44px;border-radius:14px;flex:0 0 auto;
-      background: linear-gradient(135deg, var(--gold2), var(--gold));
-      box-shadow: 0 14px 34px rgba(212,175,55,.22);
-      position:relative;overflow:hidden;
-    }
-    .logo::after{
-      content:"L";
-      position:absolute;inset:0;display:grid;place-items:center;
-      color:#0b0b0c;font-weight:900;font-size:20px;
-      text-shadow:none;
-    }
-    h1{margin:0;font-size:22px;letter-spacing:.2px;line-height:1.1}
-    .tagline{margin:2px 0 0 0;color:var(--muted);font-size:13px}
-    .tools{
-      display:flex;gap:10px;align-items:center;flex:1 1 420px;justify-content:flex-end;flex-wrap:wrap;
-    }
-    .search{
-      flex:1 1 260px;max-width:520px;
-      display:flex;gap:10px;align-items:center;
-    }
-    input[type="search"]{
-      width:100%;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background:#0f0f12;
-      color:var(--text);
-      outline:none;
-    }
-    input[type="search"]::placeholder{color:#7d7d86}
-    .chipRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
-    .chip{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.55);
-      color:var(--text);
-      padding:8px 12px;border-radius:999px;
-      font-size:14px;font-weight:800;
-      display:flex;gap:8px;align-items:center;
-      user-select:none;
-    }
-    .dot{width:10px;height:10px;border-radius:999px;background:var(--good)}
-    .dot.bad{background:var(--bad)}
-    .miniBtn{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.55);
-      color:var(--text);
-      border-radius:999px;
-      padding:9px 12px;
-      font-weight:900;
-      cursor:pointer;
-    }
-    .miniBtn:hover{border-color: rgba(212,175,55,.55)}
-    .pills{
-      display:flex;gap:8px;flex-wrap:wrap;
-      padding:10px 14px 14px;
-    }
-    .pill{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.50);
-      padding:9px 12px;border-radius:999px;
-      font-size:14px;font-weight:800;
-      cursor:pointer;user-select:none;
-      transition: transform .06s ease;
-    }
-    .pill:active{transform:scale(.98)}
-    .pill.active{
-      border-color: rgba(212,175,55,.85);
-      box-shadow: 0 0 0 3px rgba(212,175,55,.12);
-    }
-
-    main{padding:16px 0 120px}
-    .hero{
-      display:grid;
-      grid-template-columns: 1.3fr .9fr;
-      gap:14px;
-      align-items:stretch;
-      margin-top:6px;
-    }
-    @media (max-width:920px){
-      .hero{grid-template-columns:1fr}
-    }
-    .heroCard{
-      background: var(--panel);
-      border:1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding:16px;
-      overflow:hidden;
-      position:relative;
-    }
-    .heroCard::before{
-      content:"";
-      position:absolute;inset:-40px -40px auto auto;
-      width:220px;height:220px;border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, rgba(212,175,55,.35), transparent 60%);
-      filter: blur(2px);
-      pointer-events:none;
-    }
-    .heroTitle{
-      margin:0 0 6px 0;
-      font-size:34px;
-      letter-spacing:-.4px;
-      line-height:1.05;
-    }
-    .heroSub{
-      margin:0 0 14px 0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.35;
-      max-width:58ch;
-    }
-    .heroBtns{display:flex;gap:10px;flex-wrap:wrap}
-    .btnPrimary{
-      border:none;border-radius:999px;
-      padding:12px 16px;
-      background: var(--gold);
-      color:#111;
-      font-weight:900;
-      cursor:pointer;
-    }
-    .btnGhost{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.35);
-      color:var(--text);
-      border-radius:999px;
-      padding:12px 16px;
-      font-weight:900;
-      cursor:pointer;
-    }
-    .facts{
-      display:flex;gap:10px;flex-wrap:wrap;
-      margin-top:14px;
-    }
-    .fact{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(20,20,22,.35);
-      border-radius:999px;
-      padding:9px 12px;
-      color:var(--muted);
-      font-weight:800;
-      display:flex;gap:8px;align-items:center;
-    }
-    .fact b{color:var(--text)}
-    .promoList{
-      margin:0;padding-left:16px;color:var(--muted);line-height:1.5
-    }
-    .promoList b{color:var(--text)}
-
-    .sectionTitleRow{
-      margin-top:18px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-    }
-    .sectionTitle{
-      margin:0;font-size:18px;font-weight:900;letter-spacing:.2px;
-      display:flex;gap:10px;align-items:center;
-    }
-    .clearBtn{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.45);
-      color:var(--text);
-      border-radius:999px;
-      padding:10px 12px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-      margin-top:12px;
-    }
-    @media (min-width:900px){
-      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
-    }
-
-    .card{
-      background: var(--card);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      display:flex;
-      flex-direction:column;
-      min-height: 330px;
-      position:relative;
-    }
-    .badge{
-      position:absolute;top:10px;left:10px;
-      background: rgba(11,11,12,.70);
-      border:1px solid rgba(255,255,255,.12);
-      padding:6px 10px;border-radius:999px;
-      font-weight:900;font-size:12px;color:var(--text);
-      backdrop-filter: blur(10px);
-    }
-    .imgWrap{
-      background:#ffffff;
-      height:160px;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .imgWrap img{
-      max-height:140px;
-      max-width:92%;
-      object-fit:contain;
-      display:block;
-    }
-    .content{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .name{font-weight:900;font-size:18px;margin:0}
-    .meta{color:var(--muted);font-size:13px;margin:0}
-    .price{color:var(--gold);font-size:18px;font-weight:900;margin:0}
-    .row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:auto}
-    .qty{
-      display:flex;align-items:center;gap:8px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(20,20,22,.35);
-      border-radius:999px;
-      padding:8px 10px;
-      min-width:120px;
-      justify-content:space-between;
-    }
-    .qty button{
-      width:32px;height:32px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(11,11,12,.55);
-      color:var(--text);
-      font-weight:900;
-      cursor:pointer;
-    }
-    .qty span{font-weight:900}
-    .addBtn{
-      flex:1;
-      border:none;
-      border-radius:14px;
-      padding:12px 14px;
-      background: var(--gold);
-      color:#111;
-      font-weight:900;
-      font-size:15px;
-      cursor:pointer;
-    }
-
-    /* Cart floating */
-    .cartFab{
-      position:fixed;right:16px;bottom:16px;z-index:60;
-      display:flex;gap:10px;align-items:center;
-    }
-    .fabBtn{
-      border:none;border-radius:999px;
-      padding:12px 14px;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
-    }
-    .fabCart{
-      background: rgba(20,20,22,.92);
-      color:var(--text);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(10px);
-      display:flex;gap:10px;align-items:center;
-    }
-    .fabWa{background:#25D366;color:#0b0b0c}
-    .countPill{
-      width:28px;height:28px;border-radius:999px;
-      background: var(--gold);
-      color:#111;
-      display:grid;place-items:center;
-      font-weight:900;
-    }
-
-    /* Modal */
-    .modalBack{
-      position:fixed;inset:0;
-
-      background: rgba(0,0,0,.65);
-      backdrop-filter: blur(8px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:100;
-    }
-    .modal{
-      width:min(520px,92vw);
-      background: var(--panel);
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:18px;
-      box-shadow: var(--shadow);
-      max-height:80vh;
-      overflow:auto;
-    }
-    .modal h3{
-      margin:0 0 12px 0;
-      font-size:20px;
-    }
-    .cartItem{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      gap:10px;
-    }
-    .cartItem:last-child{border-bottom:none}
-    .cartName{font-weight:800}
-    .cartQty{
-      color:var(--muted);
-      font-size:14px;
-    }
-    .modalBtns{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .closeBtn{
-      background:#222;
-      color:#fff;
-      border:none;
-      border-radius:12px;
-      padding:10px 14px;
-      font-weight:900;
-      cursor:pointer;
-    }
-    .sendBtn{
-      background:#25D366;
-      color:#0b0b0c;
-      border:none;
-      border-radius:12px;
-      padding:10px 14px;
-      font-weight:900;
-      cursor:pointer;
-      flex:1;
-    }
-
-    footer{
-      margin-top:50px;
-      padding:30px 0;
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
-    }
-  </style>
+<style>
+:root{
+--bg:#0b0b0c;
+--card:#151518;
+--gold:#d4af37;
+--text:#fff;
+--muted:#aaa;
+}
+body{
+margin:0;
+font-family:-apple-system,Segoe UI,Roboto,Arial;
+background:var(--bg);
+color:var(--text);
+}
+header{
+position:sticky;
+top:0;
+background:#0b0b0cf0;
+padding:14px;
+border-bottom:1px solid #222;
+z-index:10;
+}
+.wrap{max-width:1100px;margin:auto;}
+.brand{display:flex;gap:10px;align-items:center}
+.logo{
+width:40px;height:40px;border-radius:12px;
+background:linear-gradient(135deg,#8b6b0f,var(--gold));
+display:grid;place-items:center;
+font-weight:900;color:#000;
+}
+.search{
+width:100%;
+margin-top:10px;
+padding:12px;
+border-radius:12px;
+border:1px solid #333;
+background:#111;
+color:white;
+}
+.pills{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+.pill{
+padding:8px 12px;
+border-radius:999px;
+border:1px solid #333;
+cursor:pointer;
+font-weight:700;
+}
+.pill.active{
+border-color:var(--gold);
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+padding:16px;
+}
+@media(min-width:900px){
+.grid{grid-template-columns:repeat(4,1fr);}
+}
+.card{
+background:var(--card);
+border-radius:16px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+}
+.imgWrap{
+background:#fff;
+height:150px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.imgWrap img{
+max-height:130px;
+max-width:90%;
+}
+.content{padding:12px;}
+.name{font-weight:900;font-size:17px}
+.meta{color:var(--muted);font-size:13px}
+.price{color:var(--gold);font-weight:900}
+.row{display:flex;gap:10px;margin-top:10px}
+.qty{
+display:flex;
+align-items:center;
+gap:8px;
+}
+.qty button{
+width:30px;height:30px;
+border-radius:50%;
+border:none;
+background:#222;
+color:white;
+font-weight:900;
+}
+.addBtn{
+flex:1;
+border:none;
+background:var(--gold);
+color:#000;
+font-weight:900;
+border-radius:10px;
+}
+.cartFab{
+position:fixed;
+bottom:18px;
+right:18px;
+display:flex;
+gap:10px;
+}
+.fab{
+border:none;
+border-radius:999px;
+padding:14px;
+font-weight:900;
+}
+.cartBtn{background:#222;color:#fff}
+.waBtn{background:#25D366;color:#000}
+.modalBack{
+position:fixed;
+inset:0;
+background:#000a;
+display:none;
+align-items:center;
+justify-content:center;
+}
+.modal{
+background:#151518;
+padding:20px;
+border-radius:16px;
+width:90%;
+max-width:420px;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <div class="wrap top">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <h1>Liquorland</h1>
-        <p class="tagline">San Juan • Entrega • Pedidos por WhatsApp</p>
-      </div>
-    </div>
+<header class="wrap">
+<div class="brand">
+<div class="logo">L</div>
+<div>
+<b>Liquorland</b><br>
+<small style="color:#aaa">San Juan • Delivery • WhatsApp</small>
+</div>
+</div>
 
-    <div class="tools">
-      <div class="search">
-        <input id="q" type="search" placeholder="Buscar bebida..." />
-      </div>
+<input id="q" class="search" placeholder="Buscar bebida...">
 
-      <div class="chipRow">
-        <div class="chip"><span class="dot"></span>Abierto ahora</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="pills" class="pills"></div>
+<div id="pills" class="pills"></div>
 </header>
 
-<main class="wrap">
+<div id="grid" class="grid"></div>
 
-  <div class="hero">
-    <div class="heroCard">
-      <h2 class="heroTitle">Pedí como en una app ⚡</h2>
-      <p class="heroSub">
-        Sumá productos al carrito y finalizá el pedido por WhatsApp en 1 toque.
-        Entrega rápida en San Juan.
-      </p>
-
-      <div class="heroBtns">
-        <button class="btnPrimary" onclick="scrollToProducts()">Ver bebidas</button>
-        <button class="btnGhost" onclick="openCart()">Ver carrito</button>
-      </div>
-
-      <div class="facts">
-        <div class="fact">🚚 <b>Delivery rápido</b></div>
-        <div class="fact">💬 <b>Pedido por WhatsApp</b></div>
-        <div class="fact">⭐ <b>Más vendidos</b></div>
-      </div>
-    </div>
-
-    <div class="heroCard">
-      <h3>🔥 Promos de hoy</h3>
-      <ul class="promoList">
-        <li>Consultá precio y stock por WhatsApp</li>
-        <li>Armá pedidos con varios productos</li>
-        <li>Confirmamos total y envío</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="sectionTitleRow">
-    <h3 class="sectionTitle">⭐ Catálogo</h3>
-    <button class="clearBtn" onclick="clearFilters()">Limpiar</button>
-  </div>
-
-  <div id="grid" class="grid"></div>
-
-</main>
-
-<!-- CART FLOAT -->
 <div class="cartFab">
-  <button class="fabBtn fabCart" onclick="openCart()">
-    🛒 <div id="cartCount" class="countPill">0</div>
-  </button>
-  <button class="fabBtn fabWa" onclick="sendWhatsApp()">WhatsApp</button>
+<button class="fab cartBtn" onclick="openCart()">🛒 <span id="count">0</span></button>
+<button class="fab waBtn" onclick="sendWhatsApp()">WhatsApp</button>
 </div>
 
-<!-- MODAL -->
-<div id="modalBack" class="modalBack">
-  <div class="modal">
-    <h3>Tu pedido</h3>
-    <div id="cartItems"></div>
-
-    <div class="modalBtns">
-      <button class="closeBtn" onclick="closeCart()">Cerrar</button>
-      <button class="sendBtn" onclick="sendWhatsApp()">Enviar pedido</button>
-    </div>
-  </div>
+<div id="modal" class="modalBack">
+<div class="modal">
+<h3>Tu pedido</h3>
+<div id="cartItems"></div>
+<br>
+<button onclick="closeCart()">Cerrar</button>
 </div>
-
-<footer>
-  © 2026 Liquorland • Los precios pueden cambiar
-</footer>
+</div>
 
 <script>
 
 const WA="61423703514";
 
-/* =========================
-   PRODUCTOS (usa los tuyos)
-========================= */
+/* ======================
+CATÁLOGO COMPLETO
+====================== */
 
-const products = window.products || [];
+const products=[
 
-/* =========================
-   SISTEMA CARRITO PRO
-========================= */
+{ name:"Fernet Branca 750ml", cat:"Fernet", price:"Consultar", img:"img_8733.webp" },
+{ name:"Whisky Jameson 750ml", cat:"Whisky", price:"Consultar", img:"img_8734.jpeg" },
+{ name:"Vodka Smirnoff 750ml", cat:"Vodka", price:"Consultar", img:"img_8735.jpeg" },
+{ name:"Gin Bombay Sapphire 750ml", cat:"Gin", price:"Consultar", img:"img_8736.jpeg" },
+
+{ name:"Corona Botella", cat:"Cerveza", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Heineken Lata 473ml", cat:"Cerveza", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Stella Artois 473ml", cat:"Cerveza", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Budweiser 473ml", cat:"Cerveza", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Quilmes 473ml", cat:"Cerveza", price:"Consultar", img:"img_8737.jpeg" },
+
+{ name:"Red Bull", cat:"Energizante", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Monster Energy", cat:"Energizante", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Speed", cat:"Energizante", price:"Consultar", img:"img_8737.jpeg" },
+
+{ name:"Coca Cola 2L", cat:"Gaseosa", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Sprite 2L", cat:"Gaseosa", price:"Consultar", img:"img_8737.jpeg" },
+{ name:"Fanta 2L", cat:"Gaseosa", price:"Consultar", img:"img_8737.jpeg" },
+
+{ name:"Agua Mineral", cat:"Agua", price:"Consultar", img:"img_8737.jpeg" }
+
+];
+
+/* ======================
+APP
+====================== */
 
 let cart={};
-let activeCat="Todos";
+let active="Todos";
 
 const grid=document.getElementById("grid");
 const q=document.getElementById("q");
-const pills=document.getElementById("pills");
 
 function categories(){
-  return ["Todos",...new Set(products.map(p=>p.cat))];
+return ["Todos",...new Set(products.map(p=>p.cat))];
 }
 
 function renderPills(){
-  pills.innerHTML="";
-  categories().forEach(cat=>{
-    const el=document.createElement("div");
-    el.className="pill"+(cat===activeCat?" active":"");
-    el.textContent=cat;
-    el.onclick=()=>{activeCat=cat;renderPills();render();}
-    pills.appendChild(el);
-  });
+const pills=document.getElementById("pills");
+pills.innerHTML="";
+categories().forEach(c=>{
+const d=document.createElement("div");
+d.className="pill"+(c===active?" active":"");
+d.innerText=c;
+d.onclick=()=>{active=c;renderPills();render();}
+pills.appendChild(d);
+});
 }
 
 function filtered(){
-  const text=q.value.toLowerCase();
-  return products.filter(p=>{
-    const matchCat=activeCat==="Todos"||p.cat===activeCat;
-    const matchText=p.name.toLowerCase().includes(text);
-    return matchCat && matchText;
-  });
+return products.filter(p=>{
+const catOk=active==="Todos"||p.cat===active;
+const textOk=p.name.toLowerCase().includes(q.value.toLowerCase());
+return catOk&&textOk;
+});
 }
 
-function add(name,qty){
-  cart[name]=(cart[name]||0)+qty;
-  updateCartCount();
+function change(name,v){
+cart[name]=(cart[name]||1)+v;
+if(cart[name]<1)cart[name]=1;
+updateCount();
 }
 
-function updateCartCount(){
-  document.getElementById("cartCount").textContent=
-    Object.values(cart).reduce((a,b)=>a+b,0);
+function add(name){
+cart[name]=(cart[name]||0)+1;
+updateCount();
+}
+
+function updateCount(){
+document.getElementById("count").innerText=
+Object.values(cart).reduce((a,b)=>a+b,0);
 }
 
 function card(p){
-  return `
-  <div class="card">
-    <div class="imgWrap">
-      <img src="${p.img}" alt="${p.name}">
-    </div>
-    <div class="content">
-      <h4 class="name">${p.name}</h4>
-      <p class="meta">${p.cat}</p>
-      <p class="price">${p.price}</p>
+return `
+<div class="card">
+<div class="imgWrap"><img src="${p.img}"></div>
+<div class="content">
+<div class="name">${p.name}</div>
+<div class="meta">${p.cat}</div>
+<div class="price">${p.price}</div>
 
-      <div class="row">
-        <div class="qty">
-          <button onclick="changeQty('${p.name}',-1)">-</button>
-          <span id="q_${p.name.replaceAll(' ','_')}">1</span>
-          <button onclick="changeQty('${p.name}',1)">+</button>
-        </div>
-        <button class="addBtn"
-          onclick="addFromCard('${p.name}')">Agregar</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-let qtyMap={};
-
-function changeQty(name,d){
-  qtyMap[name]=(qtyMap[name]||1)+d;
-  if(qtyMap[name]<1) qtyMap[name]=1;
-  document.getElementById("q_"+name.replaceAll(' ','_')).textContent=qtyMap[name];
-}
-
-function addFromCard(name){
-  add(name,qtyMap[name]||1);
+<div class="row">
+<div class="qty">
+<button onclick="change('${p.name}',-1)">-</button>
+<button onclick="add('${p.name}')">+</button>
+</div>
+<button class="addBtn" onclick="add('${p.name}')">Agregar</button>
+</div>
+</div>
+</div>`;
 }
 
 function render(){
-  grid.innerHTML=filtered().map(card).join("");
+grid.innerHTML=filtered().map(card).join("");
 }
 
 function openCart(){
-  document.getElementById("modalBack").style.display="flex";
-  renderCart();
-}
-function closeCart(){
-  document.getElementById("modalBack").style.display="none";
+document.getElementById("modal").style.display="flex";
+const box=document.getElementById("cartItems");
+box.innerHTML="";
+Object.entries(cart).forEach(([n,q])=>{
+box.innerHTML+=`<div>${n} x${q}</div>`;
+});
 }
 
-function renderCart(){
-  const el=document.getElementById("cartItems");
-  el.innerHTML="";
-  Object.entries(cart).forEach(([name,qty])=>{
-    el.innerHTML+=`
-      <div class="cartItem">
-        <div>
-          <div class="cartName">${name}</div>
-          <div class="cartQty">Cantidad: ${qty}</div>
-        </div>
-      </div>`;
-  });
+function closeCart(){
+document.getElementById("modal").style.display="none";
 }
 
 function sendWhatsApp(){
-  if(!Object.keys(cart).length){
-    alert("Agregá productos primero");
-    return;
-  }
-
-  let msg="Hola Liquorland 👋%0AQuiero pedir:%0A";
-  Object.entries(cart).forEach(([n,q])=>{
-    msg+=`• ${n} x${q}%0A`;
-  });
-  msg+="%0AMi dirección:";
-
-  window.open(`https://wa.me/${WA}?text=${msg}`);
-}
-
-function scrollToProducts(){
-  window.scrollTo({top:600,behavior:"smooth"});
-}
-
-function clearFilters(){
-  activeCat="Todos";
-  q.value="";
-  renderPills();
-  render();
+let msg="Hola Liquorland 👋%0AQuiero pedir:%0A";
+Object.entries(cart).forEach(([n,q])=>{
+msg+=`• ${n} x${q}%0A`;
+});
+window.open(`https://wa.me/${WA}?text=${msg}`);
 }
 
 q.oninput=render;
 
 renderPills();
 render();
-updateCartCount();
+updateCount();
 
 </script>
 
