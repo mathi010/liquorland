@@ -18,7 +18,7 @@ const fmt = (n) =>
     maximumFractionDigits: 0
   }).format(n);
 
-// Imagen premium auto (SVG embebido) — no se rompe nunca
+// SVG premium embebido (nunca se rompe)
 function premiumImage(text, badge = "Liquorland") {
   const safeText = (text || "Producto").toString().slice(0, 28);
   const safeBadge = (badge || "Liquorland").toString().slice(0, 18);
@@ -44,7 +44,7 @@ function premiumImage(text, badge = "Liquorland") {
     <rect width="1200" height="800" fill="url(#bg)"/>
     <rect width="1200" height="800" fill="url(#glow)"/>
 
-    <!-- “botella” minimalista -->
+    <!-- botella minimalista -->
     <g filter="url(#shadow)">
       <rect x="520" y="170" width="160" height="460" rx="70" fill="#101012" stroke="#2a2a2f" stroke-width="3"/>
       <rect x="555" y="120" width="90" height="70" rx="30" fill="#0f0f11" stroke="#2a2a2f" stroke-width="3"/>
@@ -52,7 +52,7 @@ function premiumImage(text, badge = "Liquorland") {
       <rect x="540" y="500" width="120" height="70" rx="16" fill="#111116" stroke="#2a2a2f" stroke-width="2"/>
     </g>
 
-    <!-- banda con nombre -->
+    <!-- banda -->
     <g>
       <rect x="90" y="610" width="1020" height="120" rx="26" fill="rgba(0,0,0,0.45)" stroke="#2a2a2f" stroke-width="2"/>
       <text x="140" y="680" fill="#f5f6f7" font-size="56" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-weight="800">
@@ -82,34 +82,135 @@ function escapeXml(str) {
     .replaceAll("'", "&apos;");
 }
 
+// ------------------ HERO (BANNERS) ------------------
+const HERO = [
+  {
+    title: "BIG SAVINGS 💥",
+    sub: "Descuentos en productos seleccionados · Stock limitado",
+    chip: "Ver ofertas",
+    bg: "linear-gradient(135deg, rgba(255,122,26,.38), rgba(0,0,0,.10))"
+  },
+  {
+    title: "Bebidas frías ❄️",
+    sub: "Ideal para previa / asado · Pedí rápido",
+    chip: "Ver frías",
+    bg: "linear-gradient(135deg, rgba(42,167,255,.28), rgba(0,0,0,.12))"
+  },
+  {
+    title: "Combos 🔥",
+    sub: "Armados para la noche · Enviás el pedido por WhatsApp",
+    chip: "Ver combos",
+    bg: "linear-gradient(135deg, rgba(255,122,26,.28), rgba(42,167,255,.14))"
+  }
+];
+
+function renderHero() {
+  const track = $("#heroTrack");
+  const dots = $("#heroDots");
+  if (!track || !dots) return;
+
+  track.innerHTML = HERO.map((b, i) => `
+    <div class="heroCard" data-hero="${i}" style="background:${b.bg}">
+      <div class="heroCard__inner">
+        <div>
+          <div class="heroTitle">${b.title}</div>
+          <div class="heroSub">${b.sub}</div>
+        </div>
+        <div class="heroCta">
+          <span class="chip">${b.chip}</span>
+          <span class="chip">Delivery</span>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  dots.innerHTML = HERO.map((_, i)=>`<div class="dot ${i===0?'dot--on':''}" data-dot="${i}"></div>`).join("");
+
+  // dots active según scroll
+  track.addEventListener("scroll", () => {
+    const cards = [...track.querySelectorAll(".heroCard")];
+    const idx = cards.reduce((best, el, i) => {
+      const r = el.getBoundingClientRect();
+      const dist = Math.abs(r.left - 12);
+      return dist < best.dist ? {i, dist} : best;
+    }, {i:0, dist:1e9}).i;
+
+    [...dots.querySelectorAll(".dot")].forEach((d, j)=> d.classList.toggle("dot--on", j===idx));
+  });
+}
+
+// ------------------ PRODUCTS ------------------
 async function loadProducts() {
   try {
-    // Cache-bust (para que aparezcan cambios al toque)
     const res = await fetch(`./products.json?v=${Date.now()}`);
     const data = await res.json();
 
     state.products = data.map(p => ({
       ...p,
-      // si algún día querés poner imagen real: agregá "image" en products.json
       image: p.image && String(p.image).trim().length > 0
         ? p.image
         : premiumImage(p.name, "Liquorland")
     }));
 
     state.filtered = state.products;
+
+    renderHero();
     renderCategories();
+    renderOffers();
     renderProducts();
     wireSearch();
     wireCheckout();
+    wireWhatsFab();
+    wireInstall();
+    registerSW();
+
   } catch (err) {
     console.error("Error cargando productos:", err);
     const container = $("#products");
-    if (container) {
-      container.innerHTML = `<div style="padding:16px;color:#f5f6f7">
-        Error cargando productos. Revisá products.json
-      </div>`;
-    }
+    if (container) container.innerHTML = `<div style="padding:16px;color:#f5f6f7">Error cargando productos. Revisá products.json</div>`;
   }
+}
+
+// OFERTAS: promo:true o category Combos o name contiene "combo" u "oferta"
+function getOffers() {
+  const offers = state.products.filter(p =>
+    p.promo === true ||
+    String(p.category||"").toLowerCase() === "combos" ||
+    /combo|oferta|promo|descuento/i.test(String(p.name||""))
+  );
+  // si no hay suficientes, completa con los más baratos
+  if (offers.length < 6) {
+    const more = [...state.products]
+      .sort((a,b)=>(a.price||0)-(b.price||0))
+      .filter(p => !offers.includes(p))
+      .slice(0, 6 - offers.length);
+    return [...offers, ...more].slice(0, 8);
+  }
+  return offers.slice(0, 8);
+}
+
+function renderOffers() {
+  const row = $("#offersRow");
+  if (!row) return;
+
+  const offers = getOffers();
+
+  row.innerHTML = offers.map(p => `
+    <div class="offerCard">
+      <img src="${p.image}" alt="${p.name}" loading="lazy"
+           onerror="this.src='${premiumImage(p.name, "Liquorland")}'" />
+      <h3>${p.name}</h3>
+      <p>${p.desc || ""}</p>
+      <div class="offerBottom">
+        <strong>${fmt(p.price || 0)}</strong>
+        <button onclick="addToCart('${p.id}')">Agregar</button>
+      </div>
+    </div>
+  `).join("");
+
+  window.scrollOffers = (dir) => {
+    row.scrollBy({left: dir * 320, behavior: "smooth"});
+  };
 }
 
 function renderCategories() {
@@ -134,10 +235,8 @@ function renderCategories() {
 }
 
 function wireSearch() {
-  // soporta distintos IDs por si tu HTML cambió
-  const input = $("#searchInput") || $("#search") || document.querySelector('input[type="search"]');
-  const btn = $("#searchBtn") || $("#btnSearch");
-
+  const input = $("#searchInput");
+  const btn = $("#searchBtn");
   if (input) {
     input.addEventListener("input", (e) => {
       state.search = e.target.value || "";
@@ -204,15 +303,16 @@ function addToCart(id) {
 
 function updateCartBadge() {
   const count = Array.from(state.cart.values()).reduce((a, b) => a + b, 0);
-  const el = $("#cartCount") || $("#cart-count") || $("#cartBadge");
+  const el = $("#cartCount");
   if (el) el.textContent = String(count);
 }
 
+// ------------------ CHECKOUT WhatsApp ------------------
 function wireCheckout() {
-  const btn = $("#checkoutBtn") || $("#checkout") || document.querySelector('[data-checkout="1"]');
+  const btn = $("#checkoutBtn");
   if (btn) btn.onclick = checkout;
 
-  // por si tu HTML llama checkout() directo desde onclick, queda global:
+  // dejarlo global por si el HTML lo llama
   window.checkout = checkout;
   window.addToCart = addToCart;
 }
@@ -240,6 +340,41 @@ function checkout() {
     `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
     "_blank"
   );
+}
+
+// Floating WhatsApp
+function wireWhatsFab() {
+  const fab = $("#fabWhats");
+  if (!fab) return;
+  fab.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola Liquorland! Quiero hacer un pedido 👋")}`;
+}
+
+// ------------------ PWA INSTALL ------------------
+let deferredPrompt = null;
+
+function wireInstall() {
+  const installBtn = $("#installBtn");
+  if (!installBtn) return;
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = "inline-flex";
+  });
+
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+  });
+}
+
+// ------------------ SERVICE WORKER ------------------
+function registerSW() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("./sw.js").catch(()=>{});
 }
 
 document.addEventListener("DOMContentLoaded", loadProducts);
