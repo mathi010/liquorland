@@ -5,331 +5,70 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0b0b0c" />
   <title>Liquorland | Delivery San Juan</title>
-  <meta name="description" content="Liquorland — Bebidas y entrega a domicilio en San Juan, Argentina. Pedidos por WhatsApp. Catálogo tipo app." />
-  <meta name="robots" content="index,follow" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Liquorland | Delivery San Juan" />
-  <meta property="og:description" content="Bebidas frías y delivery rápido en San Juan. Pedí por WhatsApp." />
-  <meta property="og:type" content="website" />
-
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Liquorland — Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp." />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <!-- AGE GATE (+18) -->
-  <div class="agegate" id="ageGate" aria-hidden="true">
-    <div class="agegate__card" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
-      <div class="agegate__badge">+18</div>
-      <h2 id="ageTitle">Confirmación de edad</h2>
+  <!-- AGE GATE -->
+  <div id="ageGate" class="agegate">
+    <div class="agecard">
+      <div class="badge">+18</div>
+      <h1>Confirmación de edad</h1>
       <p>Este sitio es solo para mayores de 18 años. Al continuar, confirmás que sos mayor de edad.</p>
-      <div class="agegate__actions">
-        <button class="btn btn--primary" id="ageYes">Soy mayor de 18</button>
-        <a class="btn btn--ghost" id="ageNo" href="https://www.google.com/">Salir</a>
+
+      <div class="row">
+        <button class="btn primary" id="btnYes">Soy mayor de 18</button>
+        <a class="btn ghost" href="https://www.google.com">Salir</a>
       </div>
-      <p class="agegate__fineprint">
-        Beber con moderación. Prohibida su venta a menores. Evitá el alcohol al conducir.
-      </p>
+
+      <small>Beber con moderación. Prohibida su venta a menores. Evitá el alcohol al conducir.</small>
     </div>
   </div>
 
-  <!-- TOP BAR -->
+  <!-- TOP -->
   <header class="topbar">
-    <div class="topbar__brand">
-      <div class="logo">
-        <span class="logo__mark">L</span>
-        <span class="logo__text">Liquorland</span>
+    <div class="brand">
+      <div class="logo">L</div>
+      <div>
+        <div class="title">Liquorland</div>
+        <div class="subtitle">San Juan, Argentina</div>
       </div>
-      <div class="topbar__sub">San Juan, Argentina</div>
     </div>
 
-    <button class="iconbtn" id="openCartBtn" aria-label="Abrir carrito">
-      <span class="iconbtn__icon">🛒</span>
-      <span class="iconbtn__badge" id="cartCount">0</span>
+    <button class="cart" onclick="checkout()" aria-label="Carrito">
+      🛒 <span id="cartCount">0</span>
     </button>
   </header>
 
-  <!-- DELIVERY / PICKUP -->
-  <section class="modebar">
-    <div class="segmented" role="tablist" aria-label="Modo de compra">
-      <button class="segmented__btn is-active" id="modeDelivery" role="tab" aria-selected="true">
-        🚚 Delivery
-      </button>
-      <button class="segmented__btn" id="modePickup" role="tab" aria-selected="false">
-        🛍 Retiro
-      </button>
-    </div>
-    <p class="modebar__hint" id="modeHint">
-      Para confirmar precios y disponibilidad, elegí cómo querés comprar hoy.
-    </p>
-  </section>
-
-  <!-- SEARCH -->
-  <section class="searchbar">
-    <label class="searchbar__field" aria-label="Buscar productos">
-      <span class="searchbar__icon">🔎</span>
-      <input id="searchInput" type="search" placeholder="¿Qué te podemos conseguir hoy?" autocomplete="off" />
-      <button class="scanbtn" title="Escanear (demo)" aria-label="Escanear (demo)" id="scanDemoBtn">⌁</button>
-    </label>
-    <div class="searchbar__chips" id="quickChips">
-      <!-- chips injected by JS -->
-    </div>
-  </section>
-
-  <!-- PROMO STRIP -->
-  <section class="promoStrip" aria-label="Promociones">
-    <div class="promoStrip__inner">
-      <div class="promoStrip__item">
-        <div class="promoStrip__title">🔥 Ofertas del finde</div>
-        <div class="promoStrip__desc">Combos y descuentos seleccionados</div>
-      </div>
-      <div class="promoStrip__divider"></div>
-      <div class="promoStrip__item">
-        <div class="promoStrip__title">❄️ Bebidas frías</div>
-        <div class="promoStrip__desc">Ideal para previa / asado</div>
-      </div>
-      <div class="promoStrip__divider"></div>
-      <div class="promoStrip__item">
-        <div class="promoStrip__title">⚡ Pedido rápido</div>
-        <div class="promoStrip__desc">Checkout por WhatsApp</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATEGORY NAV -->
-  <main class="main">
-    <h2 class="sectionTitle">Explorá el catálogo</h2>
-
-    <div class="categoryGrid" id="categoryGrid">
-      <!-- categories injected by JS -->
-    </div>
-
-    <!-- BIG PROMO BANNER -->
-    <section class="bigBanner" aria-label="Banner principal">
-      <div class="bigBanner__content">
-        <h3>BIG SAVINGS</h3>
-        <p>Descuentos en productos seleccionados • Stock limitado</p>
-        <div class="bigBanner__actions">
-          <button class="btn btn--primary" id="viewDealsBtn">Ver ofertas</button>
-          <button class="btn btn--ghost" id="viewCombosBtn">Ver combos</button>
-        </div>
-      </div>
-      <div class="bigBanner__visual" aria-hidden="true"></div>
+  <main class="wrap">
+    <section class="mode">
+      <button class="pill active" id="modeDelivery">🚚 Delivery</button>
+      <button class="pill" id="modePickup">🛍️ Retiro</button>
     </section>
 
-    <!-- FEATURED -->
-    <section class="section">
-      <div class="section__head">
-        <h2 class="sectionTitle">Destacados</h2>
-        <button class="linkbtn" id="clearFiltersBtn">Limpiar filtros</button>
-      </div>
-      <div class="productGrid" id="featuredGrid">
-        <!-- featured products injected -->
-      </div>
+    <section class="search">
+      <input id="searchInput" type="search" placeholder="¿Qué te podemos conseguir?" />
+      <button class="btn small" id="btnSearch">Buscar</button>
     </section>
 
-    <!-- ALL PRODUCTS -->
-    <section class="section" id="allProductsSection">
-      <div class="section__head">
-        <h2 class="sectionTitle">Todo</h2>
-        <div class="sort">
-          <label for="sortSelect">Ordenar:</label>
-          <select id="sortSelect">
-            <option value="relevance">Relevancia</option>
-            <option value="priceAsc">Precio: menor a mayor</option>
-            <option value="priceDesc">Precio: mayor a menor</option>
-            <option value="nameAsc">Nombre: A → Z</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="productGrid" id="productGrid">
-        <!-- products injected -->
-      </div>
+    <section class="highlights">
+      <div>🔥 Ofertas del finde</div>
+      <div>❄️ Bebidas frías</div>
+      <div>⚡ Pedido rápido por WhatsApp</div>
     </section>
 
-    <!-- INFO -->
-    <section class="infoCards">
-      <article class="infoCard">
-        <h3>📍 Zonas</h3>
-        <p>San Juan Capital y alrededores (a confirmar).</p>
-      </article>
-      <article class="infoCard">
-        <h3>🕒 Horarios</h3>
-        <p>Lun a Dom • 10:00 a 02:00 (ejemplo).</p>
-      </article>
-      <article class="infoCard">
-        <h3>💳 Pagos</h3>
-        <p>Efectivo / Transferencia / Mercado Pago (ejemplo).</p>
-      </article>
-      <article class="infoCard">
-        <h3>📲 WhatsApp</h3>
-        <p>Hacé tu pedido directo desde el carrito.</p>
-      </article>
-    </section>
+    <h2 class="h2">Explorá el catálogo</h2>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer__cols">
-        <div>
-          <div class="logo logo--small">
-            <span class="logo__mark">L</span>
-            <span class="logo__text">Liquorland</span>
-          </div>
-          <p class="footer__muted">Delivery de bebidas en San Juan, Argentina.</p>
-          <p class="footer__muted">+18 • Beber con moderación.</p>
-        </div>
+    <!-- IMPORTANTES: estos IDs los usa app.js -->
+    <div id="categories" class="categories"></div>
+    <div id="products" class="products"></div>
 
-        <div>
-          <h4>Contacto</h4>
-          <ul class="footer__list">
-            <li><a href="#" id="footerWhatsAppLink">WhatsApp</a></li>
-            <li><a href="#" id="footerInstagramLink">Instagram</a></li>
-            <li><a href="#" id="footerMapsLink">Ubicación</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Legales</h4>
-          <ul class="footer__list">
-            <li><a href="#" id="openTermsBtn">Términos y condiciones</a></li>
-            <li><a href="#" id="openPrivacyBtn">Política de privacidad</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer__bottom">
-        <span>© <span id="year"></span> Liquorland</span>
-        <span class="footer__muted">Hecho para mobile • PWA</span>
-      </div>
-    </footer>
+    <div class="stickyCheckout">
+      <button class="btn primary full" onclick="checkout()">Finalizar pedido por WhatsApp</button>
+    </div>
   </main>
 
-  <!-- FLOATING WHATSAPP -->
-  <button class="fab" id="whatsAppFab" aria-label="Pedir por WhatsApp">
-    💬
-    <span class="fab__text">Pedir</span>
-  </button>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottomnav" aria-label="Navegación">
-    <button class="bottomnav__item is-active" data-nav="home">
-      <span class="bottomnav__icon">🏠</span>
-      <span class="bottomnav__label">Inicio</span>
-    </button>
-    <button class="bottomnav__item" data-nav="browse">
-      <span class="bottomnav__icon">🔎</span>
-      <span class="bottomnav__label">Explorar</span>
-    </button>
-    <button class="bottomnav__item" data-nav="cart" id="bottomCartBtn">
-      <span class="bottomnav__icon">🛒</span>
-      <span class="bottomnav__label">Carrito</span>
-    </button>
-    <button class="bottomnav__item" data-nav="account">
-      <span class="bottomnav__icon">👤</span>
-      <span class="bottomnav__label">Cuenta</span>
-    </button>
-  </nav>
-
-  <!-- CART DRAWER -->
-  <aside class="drawer" id="cartDrawer" aria-hidden="true">
-    <div class="drawer__overlay" id="cartOverlay"></div>
-    <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-      <div class="drawer__head">
-        <h2 id="cartTitle">Tu carrito</h2>
-        <button class="iconbtn" id="closeCartBtn" aria-label="Cerrar carrito">✕</button>
-      </div>
-
-      <div class="drawer__body">
-        <div class="cartMeta">
-          <div class="pill" id="modePill">🚚 Delivery</div>
-          <div class="pill pill--muted" id="etaPill">⏱ 30–60 min (aprox.)</div>
-        </div>
-
-        <div class="cartList" id="cartList"></div>
-
-        <div class="cartSummary">
-          <div class="cartSummary__row">
-            <span>Subtotal</span>
-            <strong id="cartSubtotal">$0</strong>
-          </div>
-          <div class="cartSummary__row cartSummary__row--muted">
-            <span>Envío</span>
-            <span id="cartDeliveryFee">A confirmar</span>
-          </div>
-          <div class="cartSummary__row cartSummary__total">
-            <span>Total</span>
-            <strong id="cartTotal">$0</strong>
-          </div>
-        </div>
-
-        <div class="checkout">
-          <h3>Finalizar por WhatsApp</h3>
-          <p class="muted">Te armamos el mensaje con tu pedido. Solo enviás y listo.</p>
-
-          <label class="field">
-            <span>Tu nombre</span>
-            <input type="text" id="customerName" placeholder="Ej: Matías" />
-          </label>
-
-          <label class="field" id="addressField">
-            <span>Dirección (Delivery)</span>
-            <input type="text" id="customerAddress" placeholder="Calle, número, barrio" />
-          </label>
-
-          <label class="field">
-            <span>Notas (opcional)</span>
-            <textarea id="customerNotes" rows="3" placeholder="Ej: llamar al llegar, sin hielo, etc."></textarea>
-          </label>
-
-          <button class="btn btn--primary btn--block" id="checkoutWhatsAppBtn">
-            Enviar pedido por WhatsApp
-          </button>
-
-          <p class="fineprint">
-            Precios/stock sujetos a disponibilidad. Prohibida la venta a menores.
-          </p>
-        </div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MODALS: TERMS / PRIVACY -->
-  <div class="modal" id="termsModal" aria-hidden="true">
-    <div class="modal__overlay" data-close="terms"></div>
-    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
-      <div class="modal__head">
-        <h3 id="termsTitle">Términos y condiciones</h3>
-        <button class="iconbtn" data-close="terms" aria-label="Cerrar">✕</button>
-      </div>
-      <div class="modal__body">
-        <ul>
-          <li>Ventas únicamente para mayores de 18 años.</li>
-          <li>Precios y disponibilidad pueden variar según stock.</li>
-          <li>El delivery y tiempos estimados son aproximados.</li>
-          <li>Prohibida la reventa a menores. Beber con moderación.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="privacyModal" aria-hidden="true">
-    <div class="modal__overlay" data-close="privacy"></div>
-    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
-      <div class="modal__head">
-        <h3 id="privacyTitle">Política de privacidad</h3>
-        <button class="iconbtn" data-close="privacy" aria-label="Cerrar">✕</button>
-      </div>
-      <div class="modal__body">
-        <p>
-          Este sitio no procesa pagos. Los pedidos se envían por WhatsApp.
-          Los datos ingresados (nombre, dirección, notas) se usan solo para armar el mensaje y quedan en tu dispositivo.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
