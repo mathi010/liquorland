@@ -1,0 +1,106 @@
+[
+  {
+    "id": "fernet-branca-750",
+    "name": "Fernet Branca 750ml",
+    "desc": "Clásico para la previa.",
+    "category": "Fernet",
+    "price": 18999,
+    "imageText": "Fernet Branca"
+  },
+  {
+    "id": "fernet-branca-1l",
+    "name": "Fernet Branca 1L",
+    "desc": "Formato grande ideal para compartir.",
+    "category": "Fernet",
+    "price": 23999,
+    "imageText": "Fernet Branca 1L"
+  },
+  {
+    "id": "corona-pack6",
+    "name": "Corona x6",
+    "desc": "Pack 6 botellas bien frías.",
+    "category": "Cervezas",
+    "price": 12999,
+    "imageText": "Corona x6"
+  },
+  {
+    "id": "heineken-pack6",
+    "name": "Heineken x6",
+    "desc": "Cerveza premium internacional.",
+    "category": "Cervezas",
+    "price": 11999,
+    "imageText": "Heineken x6"
+  },
+  {
+    "id": "stella-pack6",
+    "name": "Stella Artois x6",
+    "desc": "Cerveza lager premium.",
+    "category": "Cervezas",
+    "price": 12499,
+    "imageText": "Stella x6"
+  },
+  {
+    "id": "jack-daniels",
+    "name": "Jack Daniel's 700ml",
+    "desc": "Whisky Tennessee original.",
+    "category": "Whisky",
+    "price": 39999,
+    "imageText": "Jack Daniels"
+  },
+  {
+    "id": "johnnie-red",
+    "name": "Johnnie Walker Red Label",
+    "desc": "Whisky escocés clásico.",
+    "category": "Whisky",
+    "price": 34999,
+    "imageText": "Johnnie Walker"
+  },
+  {
+    "id": "smirnoff",
+    "name": "Smirnoff Vodka 750ml",
+    "desc": "Perfecto para tragos.",
+    "category": "Vodka",
+    "price": 21999,
+    "imageText": "Smirnoff"
+  },
+  {
+    "id": "absolut",
+    "name": "Absolut Vodka 750ml",
+    "desc": "Vodka premium sueco.",
+    "category": "Vodka",
+    "price": 27999,
+    "imageText": "Absolut Vodka"
+  },
+  {
+    "id": "malbec",
+    "name": "Vino Malbec 750ml",
+    "desc": "Malbec argentino seleccionado.",
+    "category": "Vinos",
+    "price": 9999,
+    "imageText": "Malbec"
+  },
+  {
+    "id": "cabernet",
+    "name": "Vino Cabernet Sauvignon",
+    "desc": "Ideal para carnes.",
+    "category": "Vinos",
+    "price": 10999,
+    "imageText": "Cabernet"
+  },
+  {
+    "id": "combo-previa",
+    "name": "Combo Previa 🔥",
+    "desc": "Fernet + Cola + Hielo.",
+    "category": "Combos",
+    "price": 25999,
+    "imageText": "Combo Previa"
+  },
+  {
+    "id": "combo-fiesta",
+    "name": "Combo Fiesta 🎉",
+    "desc": "Vodka + Energizante + Hielo.",
+    "category": "Combos",
+    "price": 29999,
+    "imageText": "Combo Fiesta"
+  }
+]
