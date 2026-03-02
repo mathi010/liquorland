@@ -1,194 +1,286 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liquorland | San Juan Delivery</title>
+  <meta name="description" content="Liquorland - Bebidas & delivery en San Juan. Pedidos por WhatsApp." />
 
-<title>Liquorland | Delivery San Juan</title>
+  <style>
+    :root{
+      --bg:#0b0c0f;
+      --card:#14161b;
+      --card2:#101217;
+      --text:#f2f2f2;
+      --muted:#a6a6a6;
+      --gold:#d4af37;
+      --line:#232632;
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(212,175,55,.10), transparent 55%),
+                  radial-gradient(800px 500px at 80% 10%, rgba(255,255,255,.06), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
 
-<style>
+    header{
+      position:sticky; top:0; z-index:20;
+      background: rgba(11,12,15,.92);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:16px 14px;}
+    .top{
+      display:flex; gap:12px; align-items:center;
+    }
+    .brand{display:flex; gap:10px; align-items:center; min-width:190px;}
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(212,175,55,.95), rgba(212,175,55,.55));
+      box-shadow: 0 10px 20px rgba(212,175,55,.18);
+    }
+    h1{margin:0; font-size:20px; letter-spacing:.3px}
+    .tag{margin:2px 0 0; color:var(--muted); font-size:12px}
 
-:root{
-  --bg:#0f0f10;
-  --card:#17181a;
-  --text:#ffffff;
-  --gold:#d4af37;
-  --line:#2a2b2f;
-}
+    .search{flex:1; display:flex; justify-content:flex-end;}
+    .search input{
+      width:100%;
+      max-width:520px;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      background: #0f1116;
+      color:var(--text);
+      border-radius:14px;
+      outline:none;
+    }
+    .search input:focus{border-color:rgba(212,175,55,.7); box-shadow:0 0 0 3px rgba(212,175,55,.12)}
 
-*{box-sizing:border-box;margin:0;padding:0}
+    .pillbar{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding-top:12px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:9px 12px;
+      border-radius:999px;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill.active{border-color:rgba(212,175,55,.9); box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+    .pill:hover{background: rgba(255,255,255,.05)}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
-}
+    main{max-width:1100px; margin:0 auto; padding:18px 14px 90px;}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media(min-width:820px){
+      .grid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+    }
+    @media(min-width:1100px){
+      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
+    }
 
-header{
-  text-align:center;
-  padding:20px;
-}
-
-h1{
-  color:var(--gold);
-  font-size:28px;
-}
-
-.tag{
-  color:#aaa;
-  font-size:14px;
-  margin-top:6px;
-}
-
-main{
-  max-width:1000px;
-  margin:auto;
-  padding:20px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:var(--card);
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 0 15px rgba(0,0,0,.4);
-}
-
-.img{
-  height:200px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.img img{
-  max-height:180px;
-  max-width:90%;
-}
-
-.content{
-  padding:15px;
-}
-
-.name{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-.price{
-  color:var(--gold);
-  margin-bottom:12px;
-}
-
-.btn{
-  background:var(--gold);
-  border:none;
-  padding:12px;
-  width:100%;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-  font-size:16px;
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#888;
-  font-size:13px;
-}
-
-</style>
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent 30%), var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      display:flex; flex-direction:column;
+      min-height: 330px;
+    }
+    .imgbox{
+      height:170px;
+      background: #0f1116;
+      display:flex; align-items:center; justify-content:center;
+      border-bottom:1px solid var(--line);
+      padding:10px;
+    }
+    .imgbox img{
+      max-height:100%;
+      max-width:100%;
+      object-fit:contain;
+      display:block;
+    }
+    .content{padding:12px 12px 14px; display:flex; flex-direction:column; gap:8px; flex:1}
+    .name{font-weight:800; font-size:18px; line-height:1.15}
+    .meta{color:var(--muted); font-size:13px}
+    .price{
+      font-size:18px;
+      font-weight:900;
+      color: var(--gold);
+      margin-top:auto;
+    }
+    .btn{
+      margin-top:10px;
+      width:100%;
+      padding:12px;
+      border:0;
+      border-radius:14px;
+      background: var(--gold);
+      color:#0b0c0f;
+      font-weight:900;
+      font-size:16px;
+      cursor:pointer;
+    }
+    .btn:active{transform: translateY(1px)}
+    footer{
+      position:fixed; bottom:0; left:0; right:0;
+      background: rgba(11,12,15,.92);
+      border-top:1px solid var(--line);
+      backdrop-filter: blur(10px);
+      padding:12px 14px;
+    }
+    .footwrap{max-width:1100px; margin:0 auto; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .small{color:var(--muted); font-size:12px}
+    .wa{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(212,175,55,.35);
+      background: rgba(212,175,55,.10);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <div class="brand">
+          <div class="logo"></div>
+          <div>
+            <h1>Liquorland</h1>
+            <div class="tag">San Juan • Entrega • Pedidos por WhatsApp</div>
+          </div>
+        </div>
+        <div class="search">
+          <input id="q" type="search" placeholder="Buscar (ej: Fernet, Vodka, Corona)..." />
+        </div>
+      </div>
 
-<header>
-  <h1>Liquorland</h1>
-  <div class="tag">San Juan • Delivery • Pedidos por WhatsApp</div>
-</header>
+      <div id="pillbar" class="pillbar"></div>
+    </div>
+  </header>
 
-<main>
-  <div id="grid" class="grid"></div>
-</main>
+  <main>
+    <div id="grid" class="grid"></div>
+  </main>
 
-<footer>
-© 2026 Liquorland
-</footer>
+  <footer>
+    <div class="footwrap">
+      <div class="small">© 2026 Liquorland • Los precios pueden cambiar</div>
+      <a class="wa" id="waHome" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </footer>
 
-<script>
+  <script>
+    // WhatsApp (sin +). Si tu WhatsApp es argentino, poné 54 + número (sin 0 ni 15).
+    // Ejemplo San Juan: 54 264 XXXXXXX => "54264XXXXXXX"
+    const waNumber = "61423703514";
 
-const WA = "61423703514";
+    // ===== PRODUCTOS =====
+    // IMPORTANTE: img debe coincidir EXACTO con el nombre del archivo en tu repo (minúsculas)
+    const products = [
+      { name: "Fernet Branca 750ml",     cat: "Fernet",  price: "Consultar", img: "img_8733.webp" },
+      { name: "Whisky Jameson 750ml",    cat: "Whisky",  price: "Consultar", img: "img_8734.jpg"  },
+      { name: "Vodka Smirnoff 750ml",    cat: "Vodka",   price: "Consultar", img: "img_8735.jpg"  },
+      { name: "Gin Bombay Sapphire 750ml", cat: "Ginebra", price: "Consultar", img: "img_8736.jpg" },
+      { name: "Corona 330ml",            cat: "Cerveza", price: "Consultar", img: "img_8737.jpg"  }
+    ];
 
-/* ===== PRODUCTOS ===== */
+    // ===== UI =====
+    const grid = document.getElementById("grid");
+    const q = document.getElementById("q");
+    const pillbar = document.getElementById("pillbar");
+    const waHome = document.getElementById("waHome");
 
-/* ===== PRODUCTOS ===== */
+    let activeCat = "Todos";
 
-const products = [
+    function waLink(product){
+      const msg =
+        `Hola Liquorland 👋\n` +
+        `Quiero pedir:\n` +
+        `• ${product.name}\n` +
+        `Precio: ${product.price}\n\n` +
+        `Mi zona / dirección: `;
+      return `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+    }
 
-{
-name:"Fernet Branca 750ml",
-price:"Consultar",
-img:"IMG_8733.webp"
-},
+    function waHomeLink(){
+      const msg = `Hola Liquorland 👋\nQuiero hacer un pedido.\nMi zona / dirección: `;
+      return `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+    }
 
-{
-name:"Whisky Jameson 750ml",
-price:"Consultar",
-img:"IMG_8734.jpeg"
-},
+    function makePills(){
+      const cats = ["Todos", ...Array.from(new Set(products.map(p => p.cat)))];
+      pillbar.innerHTML = "";
+      cats.forEach(cat => {
+        const b = document.createElement("button");
+        b.className = "pill" + (cat === activeCat ? " active" : "");
+        b.textContent = cat;
+        b.onclick = () => {
+          activeCat = cat;
+          render();
+          // actualizar active
+          document.querySelectorAll(".pill").forEach(x => x.classList.remove("active"));
+          b.classList.add("active");
+        };
+        pillbar.appendChild(b);
+      });
+    }
 
-];
+    function card(p){
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="imgbox">
+          <img src="${p.img}" alt="${p.name}" loading="lazy"
+               onerror="this.onerror=null; this.src=''; this.alt='Imagen no disponible'; this.style.display='none'; this.parentElement.style.color='#a6a6a6'; this.parentElement.innerText='Imagen no disponible';">
+        </div>
+        <div class="content">
+          <div class="name">${p.name}</div>
+          <div class="meta">${p.cat}</div>
+          <div class="price">${p.price}</div>
+          <button class="btn">Pedir</button>
+        </div>
+      `;
+      el.querySelector(".btn").onclick = () => window.open(waLink(p), "_blank");
+      return el;
+    }
 
-/* ===== LINK WHATSAPP ===== */
+    function render(){
+      const text = (q.value || "").trim().toLowerCase();
+      const filtered = products.filter(p => {
+        const okCat = (activeCat === "Todos") || (p.cat === activeCat);
+        const okText =
+          !text ||
+          p.name.toLowerCase().includes(text) ||
+          p.cat.toLowerCase().includes(text);
+        return okCat && okText;
+      });
 
-function waLink(p){
+      grid.innerHTML = "";
+      filtered.forEach(p => grid.appendChild(card(p)));
+    }
 
-const msg =
-`Hola Liquorland 👋
-Quiero pedir:
-• ${p.name}
-Precio: ${p.price}
-
-Mi zona / dirección:`;
-
-return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-}
-
-/* ===== CREAR TARJETAS ===== */
-
-const grid=document.getElementById("grid");
-
-products.forEach(p=>{
-
-grid.innerHTML+=`
-<div class="card">
-
-  <div class="img">
-    <img src="${p.img}" alt="${p.name}">
-  </div>
-
-  <div class="content">
-    <div class="name">${p.name}</div>
-    <div class="price">${p.price}</div>
-    <button class="btn"
-      onclick="window.open('${waLink(p)}')">
-      Pedir
-    </button>
-  </div>
-
-</div>
-`;
-});
-
-</script>
-
+    // init
+    waHome.href = waHomeLink();
+    makePills();
+    render();
+    q.addEventListener("input", render);
+  </script>
 </body>
 </html>
