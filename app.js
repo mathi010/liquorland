@@ -1,131 +1,113 @@
+// ===============================
+// LIQUORLAND APP JS
+// ===============================
+
 const WHATSAPP_NUMBER = "5426423703514";
-const CURRENCY = "ARS";
 
-const state = {
-  products: [],
-  filtered: [],
-  cart: new Map(),
-  activeCategory: "Todo",
-  search: ""
-};
+let products = [];
+let cart = {};
 
-const $ = (sel) => document.querySelector(sel);
-
-const fmt = (n) =>
-  new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: CURRENCY,
-    maximumFractionDigits: 0
-  }).format(n);
-
-function makePlaceholder(text) {
-  return `https://via.placeholder.com/600x400/111111/ffffff?text=${encodeURIComponent(text)}`;
+// ---------- FORMAT PRICE ----------
+function fmt(price) {
+  return "$" + price.toLocaleString("es-AR");
 }
 
+// ---------- LOAD PRODUCTS ----------
 async function loadProducts() {
   try {
     const res = await fetch("./products.json");
-    const data = await res.json();
-
-    state.products = data.map(p => ({
-      ...p,
-      image: makePlaceholder(p.imageText)
-    }));
-
-    state.filtered = state.products;
-    renderCategories();
-    renderProducts();
-  } catch (err) {
-    console.error("Error cargando productos:", err);
+    products = await res.json();
+    renderProducts(products);
+  } catch (e) {
+    console.error("Error cargando productos:", e);
   }
 }
 
-function renderCategories() {
-  const container = $("#categories");
-  const categories = ["Todo", ...new Set(state.products.map(p => p.category))];
+// ---------- RENDER PRODUCTS ----------
+function renderProducts(list) {
+  const container = document.getElementById("products");
+  if (!container) return;
 
   container.innerHTML = "";
 
-  categories.forEach(cat => {
-    const btn = document.createElement("button");
-    btn.className = "cat";
-    btn.innerText = cat;
-
-    btn.onclick = () => {
-      state.activeCategory = cat;
-      filterProducts();
-    };
-
-    container.appendChild(btn);
-  });
-}
-
-function filterProducts() {
-  let list = state.products;
-
-  if (state.activeCategory !== "Todo") {
-    list = list.filter(p => p.category === state.activeCategory);
-  }
-
-  if (state.search) {
-    list = list.filter(p =>
-      p.name.toLowerCase().includes(state.search.toLowerCase())
-    );
-  }
-
-  state.filtered = list;
-  renderProducts();
-}
-
-function renderProducts() {
-  const container = $("#products");
-  container.innerHTML = "";
-
-  state.filtered.forEach(p => {
+  list.forEach(p => {
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "product-card";
 
     card.innerHTML = `
-      <img src="${p.image}" alt="${p.name}" />
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <strong>${fmt(p.price)}</strong>
-      <button onclick="addToCart('${p.id}')">Agregar</button>
+      <div class="product-image">
+        ${p.imageText || "Liquorland"}
+      </div>
+
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+
+        <div class="product-bottom">
+          <span class="price">${fmt(p.price)}</span>
+          <button onclick="addToCart('${p.id}')">
+            Agregar
+          </button>
+        </div>
+      </div>
     `;
 
     container.appendChild(card);
   });
 }
 
+// ---------- ADD TO CART ----------
 function addToCart(id) {
-  const qty = state.cart.get(id) || 0;
-  state.cart.set(id, qty + 1);
-  alert("Producto agregado al carrito");
+  cart[id] = (cart[id] || 0) + 1;
+  updateCart();
 }
 
-function checkout() {
-  if (state.cart.size === 0) {
-    alert("El carrito está vacío");
-    return;
-  }
+// ---------- UPDATE CART ----------
+function updateCart() {
+  const badge = document.getElementById("cartCount");
+  const totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
 
-  let message = "Hola Liquorland! Quiero pedir:\n\n";
+  if (badge) badge.textContent = totalItems;
+}
+
+// ---------- WHATSAPP CHECKOUT ----------
+function checkout() {
+  let message = "Pedido Liquorland San Juan:%0A";
   let total = 0;
 
-  state.cart.forEach((qty, id) => {
-    const p = state.products.find(x => x.id === id);
-    const subtotal = p.price * qty;
+  Object.keys(cart).forEach(id => {
+    const product = products.find(p => p.id === id);
+    const qty = cart[id];
 
-    message += `${qty}x ${p.name} - ${fmt(subtotal)}\n`;
-    total += subtotal;
+    total += product.price * qty;
+
+    message += `${qty}x ${product.name} - ${fmt(product.price)}%0A`;
   });
 
-  message += `\nTotal: ${fmt(total)}`;
+  message += `%0ATotal: ${fmt(total)}`;
 
   window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
     "_blank"
   );
 }
 
-document.addEventListener("DOMContentLoaded", loadProducts);
+// ---------- AGE GATE ----------
+document.addEventListener("DOMContentLoaded", () => {
+
+  const ageGate = document.getElementById("ageGate");
+  const accept = document.getElementById("ageYes");
+
+  if (accept) {
+    accept.onclick = () => {
+      ageGate.style.display = "none";
+      localStorage.setItem("ageVerified", "true");
+    };
+  }
+
+  if (localStorage.getItem("ageVerified")) {
+    ageGate.style.display = "none";
+  }
+
+  loadProducts();
+});
