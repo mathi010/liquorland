@@ -4,306 +4,857 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Liquorland | San Juan Delivery</title>
-  <meta name="description" content="Liquorland - Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp." />
+  <meta name="description" content="Liquorland — Bebidas + delivery en San Juan. Pedí por WhatsApp con carrito." />
 
   <style>
     :root{
-      --bg:#0b0b0c;
-      --card:#141416;
-      --muted:#b9b9bf;
-      --text:#ffffff;
+      --bg:#0b0c0f;
+      --card:#14161b;
+      --card2:#101217;
+      --text:#f2f4f8;
+      --muted:#aab1bd;
       --gold:#d4af37;
-      --line:#2a2a2f;
+      --line:#232733;
+      --ok:#22c55e;
+      --bad:#ef4444;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --r:18px;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(212,175,55,.20), transparent 60%),
-                  radial-gradient(900px 500px at 90% 0%, rgba(212,175,55,.10), transparent 60%),
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+      background: radial-gradient(1000px 700px at 25% -10%, rgba(212,175,55,.18), transparent 60%),
+                  radial-gradient(800px 600px at 90% 10%, rgba(59,130,246,.12), transparent 60%),
                   var(--bg);
       color:var(--text);
     }
-    a{color:inherit; text-decoration:none}
-
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,11,12,.75);
-      border-bottom:1px solid rgba(255,255,255,.06);
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(11,12,15,.72);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(35,39,51,.6);
     }
-    .wrap{max-width:1100px; margin:0 auto; padding:14px 14px;}
-    .top{
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-      min-width:220px;
-    }
+    .toprow{display:flex; align-items:center; gap:12px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; min-width:200px}
     .logo{
-      width:40px; height:40px; border-radius:12px;
-      background: linear-gradient(135deg, #8b6b0f, var(--gold));
-      box-shadow: 0 10px 30px rgba(212,175,55,.18);
-      flex:0 0 auto;
+      width:40px;height:40px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(212,175,55,.95), rgba(212,175,55,.35));
+      box-shadow: 0 10px 25px rgba(212,175,55,.25);
+      display:grid; place-items:center;
+      border:1px solid rgba(212,175,55,.35);
+      font-weight:800; letter-spacing:.5px;
+      color:#0b0c0f;
     }
-    h1{
-      margin:0;
-      font-size:22px;
-      letter-spacing:.3px;
-      line-height:1.1;
-    }
-    .tagline{
-      margin:2px 0 0 0;
-      font-size:13px;
+    .brand h1{margin:0;font-size:18px; letter-spacing:.4px}
+    .brand .sub{font-size:12px;color:var(--muted); margin-top:2px}
+    .status{
+      margin-left:auto;
+      display:flex; align-items:center; gap:10px;
+      padding:8px 10px;
+      border:1px solid rgba(35,39,51,.7);
+      background: rgba(20,22,27,.55);
+      border-radius:999px;
+      font-size:12px;
       color:var(--muted);
+      white-space:nowrap;
     }
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--bad); box-shadow:0 0 0 4px rgba(239,68,68,.12)}
+    .dot.open{background:var(--ok); box-shadow:0 0 0 4px rgba(34,197,94,.12)}
     .search{
-      flex:1 1 280px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:flex-end;
+      flex:1;
+      display:flex; gap:10px; align-items:center;
     }
-    input[type="search"]{
+    .search input{
       width:100%;
-      max-width:520px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:#0f0f12;
+      padding:12px 12px;
+      border-radius:999px;
+      border:1px solid rgba(35,39,51,.8);
+      background: rgba(16,18,23,.75);
       color:var(--text);
       outline:none;
-    }
-    input[type="search"]::placeholder{color:#7d7d86}
-    .pills{
-      display:flex; gap:8px; flex-wrap:wrap;
-      padding:10px 14px 14px;
-    }
-    .pill{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(20,20,22,.6);
-      color:var(--text);
-      padding:8px 12px;
-      border-radius:999px;
       font-size:14px;
+    }
+    .search input::placeholder{color:#7f8796}
+    .btn{
+      border:0;
+      border-radius:999px;
+      padding:12px 14px;
+      font-weight:700;
       cursor:pointer;
+      transition:.2s transform, .2s opacity, .2s background;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
       user-select:none;
     }
-    .pill.active{
-      border-color: rgba(212,175,55,.9);
-      box-shadow: 0 0 0 3px rgba(212,175,55,.12);
+    .btn:active{transform:scale(.98)}
+    .btn.gold{background:var(--gold); color:#0b0c0f}
+    .btn.ghost{
+      background: rgba(20,22,27,.55);
+      border:1px solid rgba(35,39,51,.8);
+      color:var(--text);
+    }
+    .cartBtn{
+      position:relative;
+      min-width:54px;
+    }
+    .badge{
+      position:absolute;
+      top:-6px; right:-6px;
+      background: var(--gold);
+      color:#0b0c0f;
+      font-weight:900;
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.35);
     }
 
-    main{padding:18px 0 70px}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-    }
-    @media (min-width:900px){
-      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
-    }
-
-    .card{
-      background: rgba(20,20,22,.82);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
+    /* HERO */
+    .hero{padding:18px 0 10px}
+    .heroCard{
+      border:1px solid rgba(35,39,51,.65);
+      background: linear-gradient(180deg, rgba(20,22,27,.72), rgba(16,18,23,.55));
+      border-radius: calc(var(--r) + 6px);
+      padding:18px;
+      box-shadow: var(--shadow);
       overflow:hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      position:relative;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 250px at 20% 0%, rgba(212,175,55,.22), transparent 60%),
+                  radial-gradient(600px 250px at 80% 0%, rgba(59,130,246,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .heroGrid{
+      position:relative;
+      display:grid; gap:14px;
+      grid-template-columns: 1.25fr .75fr;
+      align-items:stretch;
+    }
+    .heroText h2{margin:0;font-size:22px}
+    .heroText p{margin:8px 0 14px;color:var(--muted);line-height:1.35}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0}
+    .chip{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(35,39,51,.8);
+      background: rgba(11,12,15,.35);
+      color:var(--muted);
+    }
+    .promoBox{
+      position:relative;
+      border:1px solid rgba(35,39,51,.65);
+      background: rgba(11,12,15,.35);
+      border-radius: var(--r);
+      padding:14px;
       display:flex;
       flex-direction:column;
-      min-height: 320px;
+      gap:10px;
+      justify-content:space-between;
     }
-    .imgWrap{
-      background:#ffffff;
+    .promoTitle{font-weight:900; letter-spacing:.4px}
+    .promoList{margin:0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.4}
+    .small{font-size:12px;color:#7f8796}
+
+    /* Pills */
+    .pillbar{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 10px}
+    .pill{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(35,39,51,.85);
+      background: rgba(16,18,23,.6);
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition:.18s;
+    }
+    .pill.active{
+      color:var(--text);
+      border-color: rgba(212,175,55,.75);
+      box-shadow: 0 0 0 4px rgba(212,175,55,.12);
+    }
+
+    /* Sections */
+    .sectionTitle{
+      margin:22px 0 10px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .sectionTitle h3{margin:0;font-size:16px; letter-spacing:.3px}
+    .divider{height:1px;background:rgba(35,39,51,.8); flex:1}
+
+    /* Grid cards */
+    .grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    @media(min-width:860px){ .grid{grid-template-columns: repeat(4, minmax(0,1fr));} }
+    .card{
+      border:1px solid rgba(35,39,51,.65);
+      background: linear-gradient(180deg, rgba(20,22,27,.9), rgba(16,18,23,.65));
+      border-radius: calc(var(--r) + 6px);
+      overflow:hidden;
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+      transform: translateY(8px);
+      opacity:0;
+      animation: pop .45s ease forwards;
+    }
+    @keyframes pop{to{transform:translateY(0); opacity:1}}
+    .img{
       height:160px;
+      background: #0f1116;
       display:flex;
       align-items:center;
       justify-content:center;
+      overflow:hidden;
     }
-    .imgWrap img{
-      max-height:140px;
-      max-width:92%;
-      object-fit:contain;
-      display:block;
-    }
-    .content{padding:14px}
-    .name{
-      font-weight:800;
-      font-size:18px;
-      margin:0 0 6px 0;
-    }
-    .meta{
-      color:var(--muted);
-      font-size:13px;
-      margin:0 0 10px 0;
-    }
-    .price{
-      color:var(--gold);
-      font-size:18px;
-      font-weight:900;
-      margin:0 0 12px 0;
-    }
-    .btn{
+    .img img{
       width:100%;
-      border:none;
-      border-radius:14px;
-      padding:12px 14px;
-      background: var(--gold);
-      color:#111;
-      font-weight:900;
-      font-size:16px;
-      cursor:pointer;
+      height:100%;
+      object-fit: contain;
+      background:#fff;
     }
-
-    footer{
-      border-top:1px solid rgba(255,255,255,.06);
-      color:var(--muted);
-      font-size:13px;
-      padding:18px 0;
+    .content{padding:12px}
+    .name{font-weight:900; font-size:14px; line-height:1.2}
+    .meta{margin-top:6px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; gap:8px}
+    .price{color:var(--gold); font-weight:900}
+    .actions{display:flex; gap:8px; margin-top:10px}
+    .qty{
+      display:flex; align-items:center; gap:8px;
+      border:1px solid rgba(35,39,51,.85);
+      background: rgba(11,12,15,.3);
+      border-radius: 12px;
+      padding:8px 10px;
+      flex:1;
     }
+    .qty button{
+      width:28px;height:28px;border-radius:10px;border:0;
+      background: rgba(212,175,55,.14);
+      color:var(--text);
+      font-weight:900; cursor:pointer;
+    }
+    .qty span{min-width:18px; text-align:center; font-weight:900}
+    .addBtn{flex:1}
 
-    .waFloating{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      background:#25D366;
-      color:#0b0b0c;
+    /* Floating WhatsApp */
+    .waFloat{
+      position:fixed; right:16px; bottom:16px;
+      z-index:60;
       border-radius:999px;
-      padding:12px 14px;
+      padding:14px 14px;
+      background: var(--gold);
+      color:#0b0c0f;
       font-weight:900;
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
-      border: none;
-      cursor:pointer;
+      box-shadow: 0 18px 45px rgba(212,175,55,.25);
+      border:1px solid rgba(0,0,0,.25);
+      display:flex; align-items:center; gap:10px;
     }
+
+    /* Cart drawer */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+      z-index:80;
+      opacity:0; pointer-events:none;
+      transition:.2s;
+    }
+    .overlay.open{opacity:1; pointer-events:auto}
+    .drawer{
+      position:fixed; top:0; right:0; height:100%; width:min(420px, 92vw);
+      background: rgba(12,13,17,.92);
+      border-left:1px solid rgba(35,39,51,.75);
+      z-index:90;
+      transform: translateX(102%);
+      transition:.25s;
+      display:flex; flex-direction:column;
+    }
+    .drawer.open{transform: translateX(0)}
+    .dHead{
+      padding:14px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(35,39,51,.75);
+    }
+    .dHead strong{font-size:15px}
+    .dBody{padding:12px 14px; overflow:auto; flex:1}
+    .lineItem{
+      border:1px solid rgba(35,39,51,.65);
+      background: rgba(16,18,23,.6);
+      border-radius: 16px;
+      padding:10px;
+      display:grid;
+      grid-template-columns: 54px 1fr;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .thumb{
+      width:54px;height:54px;border-radius:14px;
+      background:#fff;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .thumb img{width:100%;height:100%;object-fit:contain}
+    .liTop{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .liName{font-weight:900; font-size:13px; line-height:1.2}
+    .liPrice{color:var(--gold); font-weight:900; font-size:13px; white-space:nowrap}
+    .liBottom{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:8px}
+    .miniQty{display:flex; align-items:center; gap:6px}
+    .miniQty button{
+      width:28px;height:28px;border-radius:10px;border:0;
+      background: rgba(212,175,55,.14);
+      color:var(--text); font-weight:900; cursor:pointer;
+    }
+    .remove{
+      background: transparent;
+      border:1px solid rgba(35,39,51,.8);
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .dFoot{
+      padding:12px 14px;
+      border-top:1px solid rgba(35,39,51,.75);
+      background: rgba(11,12,15,.35);
+    }
+    .totalRow{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px}
+    .totalRow strong{font-size:14px}
+    .totalRow span{color:var(--gold); font-weight:900; font-size:15px}
+    .note{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(35,39,51,.8);
+      background: rgba(16,18,23,.65);
+      color:var(--text);
+      outline:none;
+      margin:10px 0;
+    }
+    footer{padding:26px 0 96px; color:var(--muted); font-size:12px}
   </style>
 </head>
 
 <body>
-  <header>
+  <div class="topbar">
     <div class="wrap">
-      <div class="top">
+      <div class="toprow">
         <div class="brand">
-          <div class="logo"></div>
+          <div class="logo">L</div>
           <div>
             <h1>Liquorland</h1>
-            <p class="tagline">San Juan • Entrega • Pedidos por WhatsApp</p>
+            <div class="sub">San Juan • Delivery • Pedidos por WhatsApp</div>
           </div>
         </div>
 
         <div class="search">
-          <input id="q" type="search" placeholder="Buscar (p. ej., Fernet, Vodka, Corona)..." />
+          <input id="q" type="search" placeholder="Buscar (ej.: fernet, vodka, corona)..." />
+        </div>
+
+        <button class="btn ghost cartBtn" id="openCart" aria-label="Abrir carrito">
+          🛒
+          <span class="badge" id="cartCount">0</span>
+        </button>
+
+        <div class="status" title="Horarios configurables dentro del archivo">
+          <span class="dot" id="dot"></span>
+          <span id="openText">Cerrado</span>
         </div>
       </div>
-
-      <div class="pills" id="pills"></div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <div class="wrap">
-      <div class="grid" id="grid"></div>
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroCard">
+        <div class="heroGrid">
+          <div class="heroText">
+            <h2>Pedí como en una app ⚡</h2>
+            <p>
+              Sumá productos al carrito y finalizá el pedido por WhatsApp en 1 toque.
+              Entrega rápida en San Juan.
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="btn gold" id="goCatalog">Ver bebidas</button>
+              <button class="btn ghost" id="goPromos">Promos</button>
+            </div>
+            <div class="chips">
+              <div class="chip">🚚 Delivery</div>
+              <div class="chip">💬 WhatsApp</div>
+              <div class="chip">🧾 Pedido armado</div>
+              <div class="chip">⭐ Más vendidos</div>
+            </div>
+          </div>
+
+          <div class="promoBox" id="promos">
+            <div>
+              <div class="promoTitle">🔥 Promos de hoy</div>
+              <ul class="promoList">
+                <li>Consultá precio y stock por WhatsApp</li>
+                <li>Armá tu pedido con varios productos</li>
+                <li>Te confirmamos total y envío</li>
+              </ul>
+            </div>
+            <div class="small">* Los precios pueden cambiar.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pillbar" id="pills"></div>
+
+    <div class="sectionTitle" id="catalogTitle">
+      <h3>⭐ Más vendidos</h3>
+      <div class="divider"></div>
+      <button class="btn ghost" id="clearFilters">Limpiar</button>
     </div>
+
+    <section class="grid" id="featuredGrid"></section>
+
+    <div class="sectionTitle">
+      <h3>🍾 Catálogo</h3>
+      <div class="divider"></div>
+      <div class="small" id="resultCount"></div>
+    </div>
+
+    <section class="grid" id="grid"></section>
+
+    <footer>
+      © <span id="year"></span> Liquorland • Los precios pueden cambiar •
+      Pedidos por WhatsApp: <strong id="waShown"></strong>
+    </footer>
   </main>
 
-  <footer>
-    <div class="wrap">
-      © 2026 Liquorland • Los precios pueden cambiar • WhatsApp: +61 423 703 514
-    </div>
-  </footer>
+  <a class="waFloat" id="waFloat" href="#" target="_blank" rel="noopener">WhatsApp</a>
 
-  <button class="waFloating" id="waBtn">WhatsApp</button>
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Carrito">
+    <div class="dHead">
+      <strong>🛒 Tu carrito</strong>
+      <div style="display:flex; gap:8px">
+        <button class="btn ghost" id="clearCart">Vaciar</button>
+        <button class="btn ghost" id="closeCart">✕</button>
+      </div>
+    </div>
+
+    <div class="dBody" id="cartItems"></div>
+
+    <div class="dFoot">
+      <div class="totalRow">
+        <strong>Total</strong>
+        <span id="cartTotal">$0</span>
+      </div>
+
+      <input id="addr" class="note" placeholder="Tu zona / dirección (opcional)" />
+      <button class="btn gold" id="checkout" style="width:100%">Finalizar pedido por WhatsApp</button>
+      <div class="small" style="margin-top:10px; line-height:1.35">
+        Te abrimos WhatsApp con el pedido armado. Luego confirmamos precio final + envío.
+      </div>
+    </div>
+  </aside>
 
   <script>
-    // WhatsApp (en formato internacional SIN +)
+    /* ======================
+       CONFIGURACIÓN RÁPIDA
+       ====================== */
+
+    // WhatsApp (con código país). Ej: 54XXXXXXXXXX para Argentina.
+    // Vos tenés número australiano: +61 423 703 514 => "61423703514"
     const WA = "61423703514";
 
-    // PRODUCTOS (usa EXACTAMENTE los nombres de archivos que ves en tu repo)
-    const products = [
-      { name:"Fernet Branca 750ml",       cat:"Fernet", price:"Consultar", img:"IMG_8733.webp" },
-      { name:"Whisky Jameson 750ml",      cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
-      { name:"Vodka Smirnoff 750ml",      cat:"Vodka",  price:"Consultar", img:"IMG_8735.jpeg" },
-      { name:"Gin Bombay Sapphire 750ml", cat:"Gin",    price:"Consultar", img:"IMG_8736.jpeg" },
-      { name:"Corona 330ml",              cat:"Beer",   price:"Consultar", img:"IMG_8737.jpeg" }
+    // Horarios (San Juan): 0=Domingo ... 6=Sábado
+    // Ejemplo: Abierto de 18:00 a 02:00 (cruza medianoche)
+    const HOURS = {
+      0: null,            // domingo cerrado
+      1: ["18:00","02:00"],
+      2: ["18:00","02:00"],
+      3: ["18:00","02:00"],
+      4: ["18:00","02:00"],
+      5: ["18:00","03:00"],
+      6: ["18:00","03:00"],
+    };
+
+    // Categorías visibles (orden)
+    const CATS = [
+      {key:"all", label:"Todos"},
+      {key:"fernet", label:"Fernet"},
+      {key:"whisky", label:"Whisky"},
+      {key:"vodka", label:"Vodka"},
+      {key:"gin", label:"Ginebra"},
+      {key:"beer", label:"Cerveza"},
+      {key:"wine", label:"Vino"},
+      {key:"energy", label:"Energía"},
     ];
 
-    const grid  = document.getElementById("grid");
-    const q     = document.getElementById("q");
-    const pills = document.getElementById("pills");
-    const waBtn = document.getElementById("waBtn");
+    // PRODUCTOS (agregá los tuyos acá)
+    // img: debe coincidir EXACTO con el archivo en tu repo (misma mayúscula/minúscula).
+    const products = [
+      { id:"fernet-750", name:"Fernet Branca 750ml", cat:"fernet", priceLabel:"Consultar", priceValue:null, img:"IMG_8733.webp", featured:true },
+      { id:"jameson-750", name:"Whisky Jameson 750ml", cat:"whisky", priceLabel:"Consultar", priceValue:null, img:"IMG_8734.jpeg", featured:true },
+      { id:"smirnoff-750", name:"Vodka Smirnoff 750ml", cat:"vodka", priceLabel:"Consultar", priceValue:null, img:"IMG_8735.jpeg", featured:true },
+      { id:"bombay-750", name:"Gin Bombay Sapphire 750ml", cat:"gin", priceLabel:"Consultar", priceValue:null, img:"IMG_8736.jpeg", featured:true },
+      { id:"corona-330", name:"Corona 330ml", cat:"beer", priceLabel:"Consultar", priceValue:null, img:"IMG_8737.jpeg", featured:false },
 
-    let activeCat = "Todos";
+      // Ejemplos para cuando quieras poner precio real:
+      // { id:"redbull-250", name:"Red Bull 250ml", cat:"energy", priceLabel:"$2.500", priceValue:2500, img:"redbull.jpg", featured:false },
+    ];
 
-    function waLink(p){
-      const msg =
-        `Hola Liquorland 👋\n` +
-        `Quiero pedir:\n` +
-        `• ${p.name}\n` +
-        `Precio: ${p.price}\n\n` +
-        `Mi zona / dirección: `;
-      return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+    /* ======================
+       LÓGICA
+       ====================== */
+
+    const $ = (s)=>document.querySelector(s);
+    const grid = $("#grid");
+    const featuredGrid = $("#featuredGrid");
+    const pills = $("#pills");
+    const q = $("#q");
+
+    const overlay = $("#overlay");
+    const drawer = $("#drawer");
+    const cartItems = $("#cartItems");
+    const cartTotal = $("#cartTotal");
+    const cartCount = $("#cartCount");
+
+    const openCartBtn = $("#openCart");
+    const closeCartBtn = $("#closeCart");
+    const clearCartBtn = $("#clearCart");
+    const checkoutBtn = $("#checkout");
+    const addr = $("#addr");
+
+    const waFloat = $("#waFloat");
+    const waShown = $("#waShown");
+    const resultCount = $("#resultCount");
+
+    const openText = $("#openText");
+    const dot = $("#dot");
+
+    $("#year").textContent = new Date().getFullYear();
+    waShown.textContent = `+${WA}`;
+
+    // Estado
+    let activeCat = "all";
+
+    // Carrito (id -> qty)
+    let cart = loadCart();
+
+    function loadCart(){
+      try{
+        return JSON.parse(localStorage.getItem("liquorland_cart") || "{}");
+      }catch(e){ return {}; }
+    }
+    function saveCart(){
+      localStorage.setItem("liquorland_cart", JSON.stringify(cart));
     }
 
-    function makeCard(p){
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <div class="imgWrap">
-          <img src="${p.img}" alt="${p.name}" loading="lazy"
-               onerror="this.onerror=null; this.src=''; this.parentElement.style.background='#fff';" />
-        </div>
-        <div class="content">
-          <p class="name">${p.name}</p>
-          <p class="meta">${p.cat}</p>
-          <p class="price">${p.price}</p>
-          <button class="btn" type="button">Pedir</button>
-        </div>
-      `;
-      div.querySelector("button").addEventListener("click", () => {
-        window.open(waLink(p), "_blank");
-      });
-      return div;
+    function money(n){
+      try{
+        return new Intl.NumberFormat("es-AR", {style:"currency", currency:"ARS", maximumFractionDigits:0}).format(n);
+      }catch(e){
+        return "$" + Math.round(n).toString();
+      }
     }
 
-    function render(){
-      const term = (q.value || "").trim().toLowerCase();
-      grid.innerHTML = "";
+    function getOpenStatus(){
+      // usamos hora local del dispositivo. (Si tu cliente está en San Juan, va perfecto)
+      const now = new Date();
+      const day = now.getDay(); // 0-6
+      const rule = HOURS[day];
+      if(!rule) return {open:false, text:"Cerrado"};
 
-      const filtered = products.filter(p => {
-        const okCat = (activeCat === "Todos") || (p.cat === activeCat);
-        const okTerm = !term || p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term);
-        return okCat && okTerm;
-      });
+      const [start, end] = rule;
+      const [sh, sm] = start.split(":").map(Number);
+      const [eh, em] = end.split(":").map(Number);
 
-      filtered.forEach(p => grid.appendChild(makeCard(p)));
+      const cur = now.getHours()*60 + now.getMinutes();
+      const s = sh*60 + sm;
+      const e = eh*60 + em;
+
+      // Si cruza medianoche
+      let open = false;
+      if(e < s){
+        open = (cur >= s) || (cur <= e);
+      }else{
+        open = (cur >= s) && (cur <= e);
+      }
+
+      const text = open ? "Abierto ahora" : `Cerrado (${start}-${end})`;
+      return {open, text};
     }
 
-    function renderPills(){
-      const cats = ["Todos", ...Array.from(new Set(products.map(p => p.cat)))];
+    function renderStatus(){
+      const st = getOpenStatus();
+      openText.textContent = st.text;
+      dot.classList.toggle("open", st.open);
+    }
+
+    function buildPills(){
       pills.innerHTML = "";
-      cats.forEach(cat => {
-        const b = document.createElement("div");
-        b.className = "pill" + (cat === activeCat ? " active" : "");
-        b.textContent = (cat === "Beer") ? "Cerveza" : cat; // etiqueta linda
-        b.addEventListener("click", () => {
-          activeCat = cat;
-          renderPills();
-          render();
-        });
+      CATS.forEach(c=>{
+        const b = document.createElement("button");
+        b.className = "pill" + (c.key===activeCat ? " active" : "");
+        b.textContent = c.label;
+        b.onclick = ()=>{
+          activeCat = c.key;
+          buildPills();
+          renderAll();
+        };
         pills.appendChild(b);
       });
     }
 
-    q.addEventListener("input", render);
+    function filteredProducts(){
+      const term = (q.value || "").trim().toLowerCase();
+      return products.filter(p=>{
+        const catOk = activeCat==="all" ? true : (p.cat===activeCat);
+        const searchOk = !term ? true : (p.name.toLowerCase().includes(term));
+        return catOk && searchOk;
+      });
+    }
 
-    waBtn.addEventListener("click", () => {
-      const msg = `Hola Liquorland 👋\nQuiero hacer un pedido.\nMi zona / dirección: `;
-      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
-    });
+    function productCard(p){
+      const qtyInCart = cart[p.id] || 0;
 
-    renderPills();
-    render();
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="img">
+          <img src="${p.img}" alt="${p.name}" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<?xml version=\\"1.0\\"?><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"600\\" height=\\"420\\"><rect width=\\"100%\\" height=\\"100%\\" fill=\\"white\\"/><text x=\\"50%\\" y=\\"50%\\" dominant-baseline=\\"middle\\" text-anchor=\\"middle\\" font-family=\\"Arial\\" font-size=\\"22\\" fill=\\"#111\\">Imagen no disponible</text></svg>';">
+        </div>
+        <div class="content">
+          <div class="name">${p.name}</div>
+          <div class="meta">
+            <div>${catLabel(p.cat)}</div>
+            <div class="price">${p.priceValue ? money(p.priceValue) : p.priceLabel}</div>
+          </div>
+
+          <div class="actions">
+            <div class="qty">
+              <button aria-label="Restar">−</button>
+              <span>${qtyInCart}</span>
+              <button aria-label="Sumar">+</button>
+            </div>
+            <button class="btn gold addBtn">Agregar</button>
+          </div>
+        </div>
+      `;
+
+      const minus = el.querySelector(".qty button:nth-child(1)");
+      const plus = el.querySelector(".qty button:nth-child(3)");
+      const qty = el.querySelector(".qty span");
+      const addBtn = el.querySelector(".addBtn");
+
+      function setQty(n){
+        n = Math.max(0, n);
+        qty.textContent = n;
+        if(n===0) delete cart[p.id];
+        else cart[p.id] = n;
+        saveCart();
+        updateCartUI();
+      }
+
+      minus.onclick = ()=> setQty((cart[p.id]||0) - 1);
+      plus.onclick  = ()=> setQty((cart[p.id]||0) + 1);
+      addBtn.onclick = ()=> setQty((cart[p.id]||0) + 1);
+
+      return el;
+    }
+
+    function catLabel(key){
+      const found = CATS.find(c=>c.key===key);
+      return found ? found.label : key;
+    }
+
+    function renderFeatured(){
+      featuredGrid.innerHTML = "";
+      const list = products.filter(p=>p.featured);
+      list.forEach(p=> featuredGrid.appendChild(productCard(p)));
+    }
+
+    function renderCatalog(){
+      grid.innerHTML = "";
+      const list = filteredProducts();
+      resultCount.textContent = `${list.length} producto(s)`;
+      list.forEach(p=> grid.appendChild(productCard(p)));
+    }
+
+    function renderAll(){
+      renderStatus();
+      renderFeatured();
+      renderCatalog();
+      updateCartUI();
+    }
+
+    // Cart drawer
+    function openCart(){
+      overlay.classList.add("open");
+      drawer.classList.add("open");
+      renderCartItems();
+    }
+    function closeCart(){
+      overlay.classList.remove("open");
+      drawer.classList.remove("open");
+    }
+
+    function cartCountTotal(){
+      return Object.values(cart).reduce((a,b)=>a+b,0);
+    }
+
+    function cartTotalValue(){
+      // si no hay priceValue, no suma (queda $0) pero igual arma pedido con "Consultar"
+      let total = 0;
+      for(const [id, qty] of Object.entries(cart)){
+        const p = products.find(x=>x.id===id);
+        if(!p) continue;
+        if(typeof p.priceValue==="number") total += p.priceValue * qty;
+      }
+      return total;
+    }
+
+    function updateCartUI(){
+      cartCount.textContent = cartCountTotal();
+      const t = cartTotalValue();
+      cartTotal.textContent = t>0 ? money(t) : "$0";
+      // link flotante a WhatsApp (genérico)
+      waFloat.href = `https://wa.me/${WA}?text=${encodeURIComponent("Hola Liquorland 👋 Quiero hacer un pedido.")}`;
+      // actualizar items si el drawer está abierto
+      if(drawer.classList.contains("open")) renderCartItems();
+    }
+
+    function renderCartItems(){
+      cartItems.innerHTML = "";
+      const ids = Object.keys(cart);
+      if(ids.length===0){
+        cartItems.innerHTML = `<div style="color:var(--muted); padding:10px">Tu carrito está vacío. Agregá productos 😉</div>`;
+        return;
+      }
+
+      ids.forEach(id=>{
+        const p = products.find(x=>x.id===id);
+        if(!p) return;
+        const qty = cart[id];
+
+        const row = document.createElement("div");
+        row.className = "lineItem";
+        row.innerHTML = `
+          <div class="thumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+          <div>
+            <div class="liTop">
+              <div class="liName">${p.name}</div>
+              <div class="liPrice">${p.priceValue ? money(p.priceValue) : p.priceLabel}</div>
+            </div>
+            <div class="liBottom">
+              <div class="miniQty">
+                <button>−</button>
+                <strong>${qty}</strong>
+                <button>+</button>
+              </div>
+              <button class="remove">Quitar</button>
+            </div>
+          </div>
+        `;
+
+        const minus = row.querySelector(".miniQty button:nth-child(1)");
+        const plus  = row.querySelector(".miniQty button:nth-child(3)");
+        const rem   = row.querySelector(".remove");
+
+        minus.onclick = ()=>{
+          const n = (cart[id]||0) - 1;
+          if(n<=0) delete cart[id];
+          else cart[id]=n;
+          saveCart(); updateCartUI();
+        };
+        plus.onclick = ()=>{
+          cart[id] = (cart[id]||0) + 1;
+          saveCart(); updateCartUI();
+        };
+        rem.onclick = ()=>{
+          delete cart[id];
+          saveCart(); updateCartUI();
+        };
+
+        cartItems.appendChild(row);
+      });
+    }
+
+    function buildOrderMessage(){
+      const ids = Object.keys(cart);
+      const lines = [];
+      lines.push("Hola Liquorland 👋");
+      lines.push("");
+      lines.push("Quiero pedir:");
+      lines.push("");
+
+      ids.forEach(id=>{
+        const p = products.find(x=>x.id===id);
+        if(!p) return;
+        const qty = cart[id];
+        const priceTxt = p.priceValue ? money(p.priceValue) : p.priceLabel;
+        lines.push(`• ${qty} x ${p.name} (${priceTxt})`);
+      });
+
+      const t = cartTotalValue();
+      lines.push("");
+      lines.push(`Total (estimado): ${t>0 ? money(t) : "a confirmar"}`);
+      const a = (addr.value||"").trim();
+      lines.push("");
+      lines.push(`Mi zona / dirección: ${a ? a : "—"}`);
+
+      return lines.join("\n");
+    }
+
+    // Events
+    openCartBtn.onclick = openCart;
+    closeCartBtn.onclick = closeCart;
+    overlay.onclick = closeCart;
+
+    clearCartBtn.onclick = ()=>{
+      cart = {};
+      saveCart();
+      updateCartUI();
+      renderCartItems();
+    };
+
+    checkoutBtn.onclick = ()=>{
+      const ids = Object.keys(cart);
+      if(ids.length===0){
+        alert("Tu carrito está vacío. Agregá productos primero.");
+        return;
+      }
+      const msg = buildOrderMessage();
+      const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    };
+
+    $("#clearFilters").onclick = ()=>{
+      activeCat = "all";
+      q.value = "";
+      buildPills();
+      renderAll();
+      window.scrollTo({top:0, behavior:"smooth"});
+    };
+
+    q.addEventListener("input", ()=>renderCatalog());
+
+    $("#goCatalog").onclick = ()=>{
+      document.getElementById("catalogTitle").scrollIntoView({behavior:"smooth", block:"start"});
+    };
+    $("#goPromos").onclick = ()=>{
+      document.getElementById("promos").scrollIntoView({behavior:"smooth", block:"center"});
+    };
+
+    // init
+    buildPills();
+    renderAll();
+    setInterval(renderStatus, 30_000);
   </script>
 </body>
 </html>
