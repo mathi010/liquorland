@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Liquorland | Delivery de Bebidas</title>
 
 <style>
@@ -17,9 +16,10 @@ color:white;
 header{
 background:#111;
 padding:18px;
-text-align:center;
 font-size:26px;
 font-weight:bold;
+text-align:center;
+color:#d4af37;
 }
 
 .grid{
@@ -43,19 +43,11 @@ object-fit:contain;
 background:white;
 }
 
-.content{
-padding:14px;
-}
+.info{padding:14px;}
 
-.name{
-font-weight:bold;
-margin-bottom:6px;
-}
+.name{font-weight:bold;margin-bottom:6px;}
 
-.price{
-color:#d4af37;
-margin-bottom:10px;
-}
+.price{color:#d4af37;margin-bottom:10px;}
 
 button{
 background:#d4af37;
@@ -73,17 +65,18 @@ bottom:20px;
 right:20px;
 background:#d4af37;
 color:black;
-padding:14px;
-border-radius:50px;
+padding:14px 18px;
+border-radius:40px;
 font-weight:bold;
 cursor:pointer;
+box-shadow:0 0 20px rgba(0,0,0,.5);
 }
 </style>
 </head>
 
 <body>
 
-<header>Liquorland 🍾</header>
+<header>🍾 Liquorland Delivery</header>
 
 <div class="grid" id="grid"></div>
 
@@ -100,70 +93,76 @@ let cart={};
 const products=[
 
 /* ===== FERNET ===== */
-{id:"fernet1",name:"Fernet Branca 750ml",price:"Consultar",img:"cat_fernet.jpg"},
-{id:"fernet2",name:"Fernet 1882 750ml",price:"Consultar",img:"cat_fernet.jpg"},
+{id:"f1",name:"Fernet Branca 750ml",price:"Consultar",img:"IMG_8733.webp"},
+{id:"f2",name:"Fernet Branca 450ml",price:"Consultar",img:"IMG_8733.webp"},
+{id:"f3",name:"Fernet 1882",price:"Consultar",img:"IMG_8733.webp"},
 
 /* ===== WHISKY ===== */
-{id:"whisky1",name:"Johnnie Walker Red Label",price:"Consultar",img:"cat_whisky.jpg"},
-{id:"whisky2",name:"Johnnie Walker Black Label",price:"Consultar",img:"cat_whisky.jpg"},
-{id:"whisky3",name:"Jameson Irish Whiskey",price:"Consultar",img:"cat_whisky.jpg"},
-{id:"whisky4",name:"Jack Daniels",price:"Consultar",img:"cat_whisky.jpg"},
-{id:"whisky5",name:"Chivas Regal 12",price:"Consultar",img:"cat_whisky.jpg"},
+{id:"w1",name:"Jameson 750ml",price:"Consultar",img:"IMG_8734.jpeg"},
+{id:"w2",name:"Johnnie Walker Red Label",price:"Consultar",img:"IMG_8734.jpeg"},
+{id:"w3",name:"Johnnie Walker Black Label",price:"Consultar",img:"IMG_8734.jpeg"},
+{id:"w4",name:"Jack Daniels",price:"Consultar",img:"IMG_8734.jpeg"},
+{id:"w5",name:"Ballantines",price:"Consultar",img:"IMG_8734.jpeg"},
+{id:"w6",name:"Chivas Regal",price:"Consultar",img:"IMG_8734.jpeg"},
 
 /* ===== VODKA ===== */
-{id:"vodka1",name:"Smirnoff Vodka",price:"Consultar",img:"cat_vodka.jpg"},
-{id:"vodka2",name:"Absolut Vodka",price:"Consultar",img:"cat_vodka.jpg"},
-{id:"vodka3",name:"Skyy Vodka",price:"Consultar",img:"cat_vodka.jpg"},
+{id:"v1",name:"Smirnoff Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"v2",name:"Absolut Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"v3",name:"Skyy Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
 
 /* ===== GIN ===== */
-{id:"gin1",name:"Bombay Sapphire",price:"Consultar",img:"cat_gin.jpg"},
-{id:"gin2",name:"Tanqueray",price:"Consultar",img:"cat_gin.jpg"},
-{id:"gin3",name:"Beefeater",price:"Consultar",img:"cat_gin.jpg"},
+{id:"g1",name:"Bombay Sapphire",price:"Consultar",img:"IMG_8736.jpeg"},
+{id:"g2",name:"Tanqueray",price:"Consultar",img:"IMG_8736.jpeg"},
+{id:"g3",name:"Beefeater",price:"Consultar",img:"IMG_8736.jpeg"},
 
 /* ===== CERVEZAS ===== */
-{id:"beer1",name:"Corona 330ml",price:"Consultar",img:"cat_beer.jpg"},
-{id:"beer2",name:"Heineken 473ml",price:"Consultar",img:"cat_beer.jpg"},
-{id:"beer3",name:"Stella Artois 473ml",price:"Consultar",img:"cat_beer.jpg"},
-{id:"beer4",name:"Budweiser 473ml",price:"Consultar",img:"cat_beer.jpg"},
-{id:"beer5",name:"Quilmes 473ml",price:"Consultar",img:"cat_beer.jpg"},
-
-/* ===== ENERGIZANTES ===== */
-{id:"energy1",name:"Red Bull 250ml",price:"Consultar",img:"cat_energy.jpg"},
-{id:"energy2",name:"Monster 473ml",price:"Consultar",img:"cat_energy.jpg"},
-{id:"energy3",name:"Speed 473ml",price:"Consultar",img:"cat_energy.jpg"},
-
-/* ===== GASEOSAS ===== */
-{id:"soft1",name:"Coca Cola 2.25L",price:"Consultar",img:"cat_soft.jpg"},
-{id:"soft2",name:"Coca Cola Zero",price:"Consultar",img:"cat_soft.jpg"},
-{id:"soft3",name:"Sprite 2.25L",price:"Consultar",img:"cat_soft.jpg"},
-{id:"soft4",name:"Fanta Naranja",price:"Consultar",img:"cat_soft.jpg"},
+{id:"b1",name:"Corona 330ml",price:"Consultar",img:"IMG_8737.jpeg"},
+{id:"b2",name:"Heineken",price:"Consultar",img:"IMG_8737.jpeg"},
+{id:"b3",name:"Stella Artois",price:"Consultar",img:"IMG_8737.jpeg"},
+{id:"b4",name:"Budweiser",price:"Consultar",img:"IMG_8737.jpeg"},
+{id:"b5",name:"Quilmes",price:"Consultar",img:"IMG_8737.jpeg"},
+{id:"b6",name:"Patagonia",price:"Consultar",img:"IMG_8737.jpeg"},
 
 /* ===== VINOS ===== */
-{id:"wine1",name:"Malbec 750ml",price:"Consultar",img:"cat_wine.jpg"},
-{id:"wine2",name:"Cabernet Sauvignon",price:"Consultar",img:"cat_wine.jpg"},
-{id:"wine3",name:"Espumante",price:"Consultar",img:"cat_wine.jpg"},
+{id:"vi1",name:"Malbec",price:"Consultar",img:"IMG_8733.webp"},
+{id:"vi2",name:"Cabernet Sauvignon",price:"Consultar",img:"IMG_8733.webp"},
+{id:"vi3",name:"Espumante",price:"Consultar",img:"IMG_8733.webp"},
 
-/* ===== AGUAS ===== */
-{id:"water1",name:"Agua Mineral 2L",price:"Consultar",img:"cat_water.jpg"},
-{id:"water2",name:"Agua Saborizada",price:"Consultar",img:"cat_water.jpg"}
+/* ===== ENERGIZANTES ===== */
+{id:"e1",name:"Red Bull",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"e2",name:"Monster",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"e3",name:"Speed",price:"Consultar",img:"IMG_8735.jpeg"},
+
+/* ===== GASEOSAS ===== */
+{id:"s1",name:"Coca Cola 2.25L",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"s2",name:"Coca Cola Zero",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"s3",name:"Sprite",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"s4",name:"Fanta",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"s5",name:"Pepsi",price:"Consultar",img:"IMG_8735.jpeg"},
+
+/* ===== AGUAS Y JUGOS ===== */
+{id:"a1",name:"Agua Mineral",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"a2",name:"Agua con Gas",price:"Consultar",img:"IMG_8735.jpeg"},
+{id:"a3",name:"Jugo Baggio",price:"Consultar",img:"IMG_8735.jpeg"}
 
 ];
 
 const grid=document.getElementById("grid");
 
-products.forEach(p=>{
+products.forEach((p,i)=>{
 grid.innerHTML+=`
 <div class="card">
 <img src="${p.img}">
-<div class="content">
+<div class="info">
 <div class="name">${p.name}</div>
 <div class="price">${p.price}</div>
-<button onclick="add('${p.id}','${p.name}')">Agregar</button>
+<button onclick="add(${i})">Agregar</button>
 </div>
 </div>`;
 });
 
-function add(id,name){
+function add(i){
+const id=products[i].id;
 cart[id]=(cart[id]||0)+1;
 document.getElementById("count").innerText=
 Object.values(cart).reduce((a,b)=>a+b,0);
