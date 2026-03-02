@@ -1,156 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Liquorland | San Juan Delivery</title>
-  <meta name="description" content="Liquorland - Bebidas & delivery en San Juan. Pedidos por WhatsApp." />
+  <meta name="description" content="Liquorland — Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp." />
 
   <style>
     :root{
-      --bg:#0b0c0f;
-      --card:#14161b;
-      --card2:#101217;
-      --text:#f2f2f2;
-      --muted:#a6a6a6;
-      --gold:#d4af37;
-      --line:#232632;
-      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --bg:#0d0d10; --card:#17181a; --text:#f2f2f2; --muted:#bdbdbd;
+      --gold:#d4af37; --line:#2a2b2f;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 0%, rgba(212,175,55,.10), transparent 55%),
-                  radial-gradient(800px 500px at 80% 10%, rgba(255,255,255,.06), transparent 55%),
-                  var(--bg);
-      color:var(--text);
+    body{margin:0;font-family:Arial,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+    header{position:sticky;top:0;z-index:5;background:rgba(13,13,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .wrap{max-width:1050px;margin:0 auto;padding:14px 14px}
+    .top{display:flex;gap:12px;align-items:center}
+    .brand{display:flex;gap:10px;align-items:center;min-width:170px}
+    .logo{width:38px;height:38px;border-radius:10px;background:var(--gold)}
+    h1{margin:0;font-size:22px;letter-spacing:.5px}
+    .tag{color:var(--muted);font-size:13px;margin-top:2px}
+    .search{flex:1;min-width:220px;display:flex;gap:10px;align-items:center}
+    input{
+      width:100%;max-width:520px;padding:12px 12px;border-radius:12px;
+      border:1px solid var(--line);background:#101114;color:var(--text);outline:none
     }
-
-    header{
-      position:sticky; top:0; z-index:20;
-      background: rgba(11,12,15,.92);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--line);
-    }
-    .wrap{max-width:1100px; margin:0 auto; padding:16px 14px;}
-    .top{
-      display:flex; gap:12px; align-items:center;
-    }
-    .brand{display:flex; gap:10px; align-items:center; min-width:190px;}
-    .logo{
-      width:42px; height:42px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(212,175,55,.95), rgba(212,175,55,.55));
-      box-shadow: 0 10px 20px rgba(212,175,55,.18);
-    }
-    h1{margin:0; font-size:20px; letter-spacing:.3px}
-    .tag{margin:2px 0 0; color:var(--muted); font-size:12px}
-
-    .search{flex:1; display:flex; justify-content:flex-end;}
-    .search input{
-      width:100%;
-      max-width:520px;
-      padding:12px 12px;
-      border:1px solid var(--line);
-      background: #0f1116;
-      color:var(--text);
-      border-radius:14px;
-      outline:none;
-    }
-    .search input:focus{border-color:rgba(212,175,55,.7); box-shadow:0 0 0 3px rgba(212,175,55,.12)}
-
-    .pillbar{
-      display:flex; gap:8px; flex-wrap:wrap;
-      padding-top:12px;
-    }
+    .pillbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .pill{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      padding:9px 12px;
-      border-radius:999px;
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
+      border:1px solid var(--line);background:#101114;color:var(--text);
+      padding:8px 10px;border-radius:999px;font-size:13px;cursor:pointer;user-select:none
     }
-    .pill.active{border-color:rgba(212,175,55,.9); box-shadow:0 0 0 3px rgba(212,175,55,.12)}
-    .pill:hover{background: rgba(255,255,255,.05)}
-
-    main{max-width:1100px; margin:0 auto; padding:18px 14px 90px;}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-    }
-    @media(min-width:820px){
-      .grid{grid-template-columns: repeat(3, minmax(0, 1fr));}
-    }
-    @media(min-width:1100px){
-      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
-    }
-
+    .pill.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,175,55,.15) inset}
+    main{padding:18px 0 80px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media(min-width:820px){.grid{grid-template-columns:repeat(3,1fr)}}
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent 30%), var(--card);
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      display:flex; flex-direction:column;
-      min-height: 330px;
+      background:var(--card);border:1px solid var(--line);
+      border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.35)
     }
-    .imgbox{
-      height:170px;
-      background: #0f1116;
-      display:flex; align-items:center; justify-content:center;
-      border-bottom:1px solid var(--line);
-      padding:10px;
+    .img{
+      height:160px;background:#fff;display:flex;align-items:center;justify-content:center
     }
-    .imgbox img{
-      max-height:100%;
-      max-width:100%;
-      object-fit:contain;
-      display:block;
-    }
-    .content{padding:12px 12px 14px; display:flex; flex-direction:column; gap:8px; flex:1}
-    .name{font-weight:800; font-size:18px; line-height:1.15}
-    .meta{color:var(--muted); font-size:13px}
-    .price{
-      font-size:18px;
-      font-weight:900;
-      color: var(--gold);
-      margin-top:auto;
-    }
+    .img img{max-height:150px;max-width:90%;object-fit:contain}
+    .content{padding:12px 12px 14px}
+    .name{font-weight:800;font-size:18px;margin-bottom:6px}
+    .price{color:var(--gold);font-size:16px;margin-bottom:12px}
     .btn{
-      margin-top:10px;
-      width:100%;
-      padding:12px;
-      border:0;
-      border-radius:14px;
-      background: var(--gold);
-      color:#0b0c0f;
-      font-weight:900;
-      font-size:16px;
-      cursor:pointer;
+      display:block;text-align:center;text-decoration:none;
+      background:var(--gold);color:#111;font-weight:800;
+      padding:12px;border-radius:14px
     }
-    .btn:active{transform: translateY(1px)}
-    footer{
-      position:fixed; bottom:0; left:0; right:0;
-      background: rgba(11,12,15,.92);
-      border-top:1px solid var(--line);
-      backdrop-filter: blur(10px);
-      padding:12px 14px;
-    }
-    .footwrap{max-width:1100px; margin:0 auto; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
-    .small{color:var(--muted); font-size:12px}
+    footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
     .wa{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.10);
-      color:var(--text);
-      text-decoration:none;
-      font-weight:800;
+      position:fixed;right:14px;bottom:14px;
+      background:var(--gold);color:#111;text-decoration:none;font-weight:900;
+      padding:12px 14px;border-radius:999px;box-shadow:0 14px 30px rgba(0,0,0,.4)
     }
   </style>
 </head>
@@ -167,123 +71,93 @@
           </div>
         </div>
         <div class="search">
-          <input id="q" type="search" placeholder="Buscar (ej: Fernet, Vodka, Corona)..." />
+          <input id="q" placeholder="Buscar (ej: Fernet, Vodka, Corona)..." />
         </div>
       </div>
 
-      <div id="pillbar" class="pillbar"></div>
+      <div class="pillbar" id="pills">
+        <div class="pill active" data-cat="all">Todos</div>
+        <div class="pill" data-cat="Fernet">Fernet</div>
+        <div class="pill" data-cat="Whisky">Whisky</div>
+        <div class="pill" data-cat="Vodka">Vodka</div>
+        <div class="pill" data-cat="Gin">Ginebra</div>
+        <div class="pill" data-cat="Beer">Cerveza</div>
+      </div>
     </div>
   </header>
 
-  <main>
-    <div id="grid" class="grid"></div>
+  <main class="wrap">
+    <div class="grid" id="grid"></div>
   </main>
 
-  <footer>
-    <div class="footwrap">
-      <div class="small">© 2026 Liquorland • Los precios pueden cambiar</div>
-      <a class="wa" id="waHome" href="#" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
+  <footer class="wrap">
+    © 2026 Liquorland • Los precios pueden cambiar • WhatsApp: +61 423 703 514
   </footer>
 
+  <a class="wa" href="https://wa.me/61423703514" target="_blank">WhatsApp</a>
+
   <script>
-    // WhatsApp (sin +). Si tu WhatsApp es argentino, poné 54 + número (sin 0 ni 15).
-    // Ejemplo San Juan: 54 264 XXXXXXX => "54264XXXXXXX"
-    const waNumber = "61423703514";
+    const WA = "61423703514";
 
-    // ===== PRODUCTOS =====
-    // IMPORTANTE: img debe coincidir EXACTO con el nombre del a
-
-
-  
+    // IMPORTANTE: estos nombres de archivo deben ser EXACTOS a los que están en tu repo
     const products = [
-      { name: "Fernet Branca 750ml",     cat: "Fernet",  price: "Consultar", img: "img_8733.webp" },
-      { name: "Whisky Jameson 750ml",    cat: "Whisky",  price: "Consultar", img: "img_8734.jpg"  },
-      { name: "Vodka Smirnoff 750ml",    cat: "Vodka",   price: "Consultar", img: "img_8735.jpg"  },
-      { name: "Gin Bombay Sapphire 750ml", cat: "Ginebra", price: "Consultar", img: "img_8736.jpg" },
-      { name: "Corona 330ml",            cat: "Cerveza", price: "Consultar", img: "img_8737.jpg"  }
+      { name:"Fernet Branca 750ml", cat:"Fernet", price:"Consultar", img:"IMG_8733.webp" },
+      { name:"Whisky Jameson 750ml", cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Vodka Smirnoff 750ml", cat:"Vodka", price:"Consultar", img:"IMG_8735.jpeg" },
+      { name:"Gin Bombay Sapphire 750ml", cat:"Gin", price:"Consultar", img:"IMG_8736.jpeg" },
+      { name:"Corona 330ml", cat:"Beer", price:"Consultar", img:"IMG_8737.jpeg" }
     ];
 
-    // ===== UI =====
+    let activeCat = "all";
     const grid = document.getElementById("grid");
     const q = document.getElementById("q");
-    const pillbar = document.getElementById("pillbar");
-    const waHome = document.getElementById("waHome");
+    const pills = document.getElementById("pills");
 
-    let activeCat = "Todos";
-
-    function waLink(product){
+    function waLink(p){
       const msg =
         `Hola Liquorland 👋\n` +
         `Quiero pedir:\n` +
-        `• ${product.name}\n` +
-        `Precio: ${product.price}\n\n` +
+        `• ${p.name}\n` +
+        `Precio: ${p.price}\n\n` +
         `Mi zona / dirección: `;
-      return `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
-    }
-
-    function waHomeLink(){
-      const msg = `Hola Liquorland 👋\nQuiero hacer un pedido.\nMi zona / dirección: `;
-      return `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
-    }
-
-    function makePills(){
-      const cats = ["Todos", ...Array.from(new Set(products.map(p => p.cat)))];
-      pillbar.innerHTML = "";
-      cats.forEach(cat => {
-        const b = document.createElement("button");
-        b.className = "pill" + (cat === activeCat ? " active" : "");
-        b.textContent = cat;
-        b.onclick = () => {
-          activeCat = cat;
-          render();
-          // actualizar active
-          document.querySelectorAll(".pill").forEach(x => x.classList.remove("active"));
-          b.classList.add("active");
-        };
-        pillbar.appendChild(b);
-      });
-    }
-
-    function card(p){
-      const el = document.createElement("div");
-      el.className = "card";
-      el.innerHTML = `
-        <div class="imgbox">
-          <img src="${p.img}" alt="${p.name}" loading="lazy"
-               onerror="this.onerror=null; this.src=''; this.alt='Imagen no disponible'; this.style.display='none'; this.parentElement.style.color='#a6a6a6'; this.parentElement.innerText='Imagen no disponible';">
-        </div>
-        <div class="content">
-          <div class="name">${p.name}</div>
-          <div class="meta">${p.cat}</div>
-          <div class="price">${p.price}</div>
-          <button class="btn">Pedir</button>
-        </div>
-      `;
-      el.querySelector(".btn").onclick = () => window.open(waLink(p), "_blank");
-      return el;
+      return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
     }
 
     function render(){
-      const text = (q.value || "").trim().toLowerCase();
-      const filtered = products.filter(p => {
-        const okCat = (activeCat === "Todos") || (p.cat === activeCat);
-        const okText =
-          !text ||
-          p.name.toLowerCase().includes(text) ||
-          p.cat.toLowerCase().includes(text);
-        return okCat && okText;
-      });
-
+      const query = (q.value || "").toLowerCase().trim();
       grid.innerHTML = "";
-      filtered.forEach(p => grid.appendChild(card(p)));
+
+      products
+        .filter(p => activeCat === "all" ? true : p.cat === activeCat)
+        .filter(p => !query || p.name.toLowerCase().includes(query))
+        .forEach(p => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="img">
+              <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <div class="content">
+              <div class="name">${p.name}</div>
+              <div class="price">${p.price}</div>
+              <a class="btn" href="${waLink(p)}" target="_blank">Pedir</a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
     }
 
-    // init
-    waHome.href = waHomeLink();
-    makePills();
-    render();
+    pills.addEventListener("click", (e) => {
+      const pill = e.target.closest(".pill");
+      if(!pill) return;
+      activeCat = pill.dataset.cat;
+      [...pills.querySelectorAll(".pill")].forEach(x => x.classList.remove("active"));
+      pill.classList.add("active");
+      render();
+    });
+
     q.addEventListener("input", render);
+    render();
   </script>
 </body>
 </html>
