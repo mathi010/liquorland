@@ -3,94 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liquorland | San Juan Delivery</title>
+
+<title>Liquorland | Delivery San Juan</title>
 
 <style>
+
+:root{
+  --bg:#0f0f10;
+  --card:#17181a;
+  --text:#ffffff;
+  --gold:#d4af37;
+  --line:#2a2b2f;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
 body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#0f0f10;
-color:white;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 header{
-padding:20px;
-text-align:center;
-border-bottom:1px solid #222;
+  text-align:center;
+  padding:20px;
 }
 
 h1{
-color:#d4af37;
-margin:0;
+  color:var(--gold);
+  font-size:28px;
+}
+
+.tag{
+  color:#aaa;
+  font-size:14px;
+  margin-top:6px;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-gap:15px;
-padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
 }
 
 .card{
-background:#17181a;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 0 10px rgba(0,0,0,.4);
-display:flex;
-flex-direction:column;
+  background:var(--card);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 15px rgba(0,0,0,.4);
 }
 
-.card img{
-width:100%;
-height:180px;
-object-fit:contain;
-background:white;
+.img{
+  height:200px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.img img{
+  max-height:180px;
+  max-width:90%;
 }
 
 .content{
-padding:12px;
-flex:1;
+  padding:15px;
 }
 
 .name{
-font-weight:bold;
-margin-bottom:6px;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:6px;
 }
 
 .price{
-color:#d4af37;
-margin-bottom:10px;
+  color:var(--gold);
+  margin-bottom:12px;
 }
 
 .btn{
-background:#d4af37;
-color:black;
-padding:10px;
-border-radius:8px;
-text-decoration:none;
-display:block;
-text-align:center;
-font-weight:bold;
+  background:var(--gold);
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
 }
 
 footer{
-text-align:center;
-padding:20px;
-border-top:1px solid #222;
-font-size:14px;
-color:#aaa;
+  text-align:center;
+  padding:25px;
+  color:#888;
+  font-size:13px;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Liquorland</h1>
-<p>San Juan • Entrega • Pedidos por WhatsApp</p>
+  <h1>Liquorland</h1>
+  <div class="tag">San Juan • Delivery • Pedidos por WhatsApp</div>
 </header>
 
-<div class="grid" id="grid"></div>
+<main>
+  <div id="grid" class="grid"></div>
+</main>
 
 <footer>
 © 2026 Liquorland
@@ -98,63 +125,81 @@ color:#aaa;
 
 <script>
 
-const WA="61423703514";
+const WA = "61423703514";
 
-const products=[
+/* ===== PRODUCTOS ===== */
+
+const products = [
 
 {
 name:"Fernet Branca 750ml",
 price:"Consultar",
-img:"IMG_8733.webp"
+img:"img_8733.webp"
 },
 
 {
 name:"Whisky Jameson 750ml",
 price:"Consultar",
-img:"IMG_8734.jpg"
+img:"img_8734.jpg"
 },
 
 {
 name:"Vodka Smirnoff 750ml",
 price:"Consultar",
-img:"IMG_8735.jpg"
+img:"img_8735.jpg"
 },
 
 {
 name:"Gin Bombay Sapphire 750ml",
 price:"Consultar",
-img:"IMG_8736.jpg"
+img:"img_8736.jpg"
 },
 
 {
 name:"Corona 330ml",
 price:"Consultar",
-img:"IMG_8737.jpg"
+img:"img_8737.jpg"
 }
 
 ];
+
+/* ===== LINK WHATSAPP ===== */
+
 function waLink(p){
-  const msg =
-    `Hola Liquorland 👋%0A` +
-    `Quiero pedir:%0A` +
-    `• ${p.name}%0A` +
-    `Precio: ${p.price}%0A%0A` +
-    `Mi zona / dirección: `;
-  return `https://wa.me/${WA}?text=${msg}`;
+
+const msg =
+`Hola Liquorland 👋
+Quiero pedir:
+• ${p.name}
+Precio: ${p.price}
+
+Mi zona / dirección:`;
+
+return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
 }
 
+/* ===== CREAR TARJETAS ===== */
 
 const grid=document.getElementById("grid");
 
 products.forEach(p=>{
+
 grid.innerHTML+=`
 <div class="card">
-<img src="${p.img}">
-<div class="content">
-<div class="name">${p.name}</div>
-<div class="price">${p.price}</div>
-<a class="btn" href="${waLink(p.name)}">Pedir</a>
-</div>
+
+  <div class="img">
+    <img src="${p.img}" alt="${p.name}">
+  </div>
+
+  <div class="content">
+    <div class="name">${p.name}</div>
+    <div class="price">${p.price}</div>
+    <button class="btn"
+      onclick="window.open('${waLink(p)}')">
+      Pedir
+    </button>
+  </div>
+
 </div>
 `;
 });
