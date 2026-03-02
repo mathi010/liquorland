@@ -1,193 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Liquorland | Delivery de Bebidas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liquorland | San Juan Delivery</title>
+  <meta name="description" content="Liquorland - Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp." />
 
-<style>
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#0b0c10;
-color:white;
-}
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --card:#141416;
+      --muted:#b9b9bf;
+      --text:#ffffff;
+      --gold:#d4af37;
+      --line:#2a2a2f;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(212,175,55,.20), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(212,175,55,.10), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit; text-decoration:none}
 
-header{
-background:#111;
-padding:18px;
-font-size:26px;
-font-weight:bold;
-text-align:center;
-color:#d4af37;
-}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,11,12,.75);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:14px 14px;}
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      min-width:220px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: linear-gradient(135deg, #8b6b0f, var(--gold));
+      box-shadow: 0 10px 30px rgba(212,175,55,.18);
+      flex:0 0 auto;
+    }
+    h1{
+      margin:0;
+      font-size:22px;
+      letter-spacing:.3px;
+      line-height:1.1;
+    }
+    .tagline{
+      margin:2px 0 0 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .search{
+      flex:1 1 280px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    input[type="search"]{
+      width:100%;
+      max-width:520px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:#0f0f12;
+      color:var(--text);
+      outline:none;
+    }
+    input[type="search"]::placeholder{color:#7d7d86}
+    .pills{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding:10px 14px 14px;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(20,20,22,.6);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:14px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill.active{
+      border-color: rgba(212,175,55,.9);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.12);
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
-padding:20px;
-}
+    main{padding:18px 0 70px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media (min-width:900px){
+      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
+    }
 
-.card{
-background:#181a20;
-border-radius:14px;
-overflow:hidden;
-box-shadow:0 0 15px rgba(0,0,0,.5);
-}
+    .card{
+      background: rgba(20,20,22,.82);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+    }
+    .imgWrap{
+      background:#ffffff;
+      height:160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .imgWrap img{
+      max-height:140px;
+      max-width:92%;
+      object-fit:contain;
+      display:block;
+    }
+    .content{padding:14px}
+    .name{
+      font-weight:800;
+      font-size:18px;
+      margin:0 0 6px 0;
+    }
+    .meta{
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 10px 0;
+    }
+    .price{
+      color:var(--gold);
+      font-size:18px;
+      font-weight:900;
+      margin:0 0 12px 0;
+    }
+    .btn{
+      width:100%;
+      border:none;
+      border-radius:14px;
+      padding:12px 14px;
+      background: var(--gold);
+      color:#111;
+      font-weight:900;
+      font-size:16px;
+      cursor:pointer;
+    }
 
-.card img{
-width:100%;
-height:210px;
-object-fit:contain;
-background:white;
-}
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:13px;
+      padding:18px 0;
+    }
 
-.info{padding:14px;}
-
-.name{font-weight:bold;margin-bottom:6px;}
-
-.price{color:#d4af37;margin-bottom:10px;}
-
-button{
-background:#d4af37;
-border:none;
-padding:10px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-width:100%;
-}
-
-.cart{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#d4af37;
-color:black;
-padding:14px 18px;
-border-radius:40px;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 0 20px rgba(0,0,0,.5);
-}
-</style>
+    .waFloating{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      background:#25D366;
+      color:#0b0b0c;
+      border-radius:999px;
+      padding:12px 14px;
+      font-weight:900;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      border: none;
+      cursor:pointer;
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <div class="brand">
+          <div class="logo"></div>
+          <div>
+            <h1>Liquorland</h1>
+            <p class="tagline">San Juan • Entrega • Pedidos por WhatsApp</p>
+          </div>
+        </div>
 
-<header>🍾 Liquorland Delivery</header>
+        <div class="search">
+          <input id="q" type="search" placeholder="Buscar (p. ej., Fernet, Vodka, Corona)..." />
+        </div>
+      </div>
 
-<div class="grid" id="grid"></div>
+      <div class="pills" id="pills"></div>
+    </div>
+  </header>
 
-<div class="cart" onclick="sendOrder()">
-🛒 Pedido (<span id="count">0</span>)
-</div>
+  <main>
+    <div class="wrap">
+      <div class="grid" id="grid"></div>
+    </div>
+  </main>
 
-<script>
+  <footer>
+    <div class="wrap">
+      © 2026 Liquorland • Los precios pueden cambiar • WhatsApp: +61 423 703 514
+    </div>
+  </footer>
 
-const WA="61423703514";
+  <button class="waFloating" id="waBtn">WhatsApp</button>
 
-let cart={};
+  <script>
+    // WhatsApp (en formato internacional SIN +)
+    const WA = "61423703514";
 
-const products=[
+    // PRODUCTOS
+    // - Mantengo tus 5 productos con sus imágenes reales
+    // - El resto usa "Consultar" y sin imagen (si no existe, simplemente queda en blanco)
+    const products = [
+      // ====== TUS PRODUCTOS (sin cambios, solo evito duplicados) ======
+      { name:"Fernet Branca 750ml",       cat:"Fernet",      price:"Consultar", img:"IMG_8733.webp" },
+      { name:"Whisky Jameson 750ml",      cat:"Whisky",      price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Vodka Smirnoff 750ml",      cat:"Vodka",       price:"Consultar", img:"IMG_8735.jpeg" },
+      { name:"Gin Bombay Sapphire 750ml", cat:"Gin",         price:"Consultar", img:"IMG_8736.jpeg" },
+      { name:"Corona 330ml",              cat:"Cerveza",     price:"Consultar", img:"IMG_8737.jpeg" },
 
-/* ===== FERNET ===== */
-{id:"f1",name:"Fernet Branca 750ml",price:"Consultar",img:"IMG_8733.webp"},
-{id:"f2",name:"Fernet Branca 450ml",price:"Consultar",img:"IMG_8733.webp"},
-{id:"f3",name:"Fernet 1882",price:"Consultar",img:"IMG_8733.webp"},
+      // ====== CERVEZAS ======
+      { name:"Corona Extra 710ml",        cat:"Cerveza", price:"Consultar", img:"IMG_8737.jpeg" },
+      { name:"Heineken Lata 473ml",       cat:"Cerveza", price:"Consultar", img:"IMG_8737.jpeg" },
+      { name:"Stella Artois Lata 473ml",  cat:"Cerveza", price:"Consultar", img:"IMG_8737.jpeg" },
+      { name:"Budweiser Lata 473ml",      cat:"Cerveza", price:"Consultar", img:"IMG_8737.jpeg" },
+      { name:"Quilmes Lata 473ml",        cat:"Cerveza", price:"Consultar", img:"IMG_8737.jpeg" },
+      { name:"Andes Roja 473ml",          cat:"Cerveza", price:"Consultar" },
+      { name:"Andes IPA 473ml",           cat:"Cerveza", price:"Consultar" },
+      { name:"Patagonia Amber Lager",     cat:"Cerveza", price:"Consultar" },
+      { name:"Patagonia 24.7",            cat:"Cerveza", price:"Consultar" },
 
-/* ===== WHISKY ===== */
-{id:"w1",name:"Jameson 750ml",price:"Consultar",img:"IMG_8734.jpeg"},
-{id:"w2",name:"Johnnie Walker Red Label",price:"Consultar",img:"IMG_8734.jpeg"},
-{id:"w3",name:"Johnnie Walker Black Label",price:"Consultar",img:"IMG_8734.jpeg"},
-{id:"w4",name:"Jack Daniels",price:"Consultar",img:"IMG_8734.jpeg"},
-{id:"w5",name:"Ballantines",price:"Consultar",img:"IMG_8734.jpeg"},
-{id:"w6",name:"Chivas Regal",price:"Consultar",img:"IMG_8734.jpeg"},
+      // ====== WHISKY ======
+      { name:"Johnnie Walker Red Label 750ml",   cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Johnnie Walker Black Label 750ml", cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Ballantines Finest 750ml",         cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Chivas Regal 12y 750ml",           cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Jack Daniel’s 750ml",              cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
+      { name:"Jim Beam 750ml",                   cat:"Whisky", price:"Consultar", img:"IMG_8734.jpeg" },
 
-/* ===== VODKA ===== */
-{id:"v1",name:"Smirnoff Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"v2",name:"Absolut Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"v3",name:"Skyy Vodka",price:"Consultar",img:"IMG_8735.jpeg"},
+      // ====== VODKA ======
+      { name:"Absolut Vodka 750ml",              cat:"Vodka", price:"Consultar", img:"IMG_8735.jpeg" },
+      { name:"Skyy Vodka 750ml",                 cat:"Vodka", price:"Consultar", img:"IMG_8735.jpeg" },
 
-/* ===== GIN ===== */
-{id:"g1",name:"Bombay Sapphire",price:"Consultar",img:"IMG_8736.jpeg"},
-{id:"g2",name:"Tanqueray",price:"Consultar",img:"IMG_8736.jpeg"},
-{id:"g3",name:"Beefeater",price:"Consultar",img:"IMG_8736.jpeg"},
+      // ====== GIN ======
+      { name:"Gin Tanqueray 750ml",              cat:"Gin", price:"Consultar", img:"IMG_8736.jpeg" },
+      { name:"Gin Beefeater 750ml",              cat:"Gin", price:"Consultar", img:"IMG_8736.jpeg" },
+      { name:"Gin Gordon’s 750ml",               cat:"Gin", price:"Consultar", img:"IMG_8736.jpeg" },
 
-/* ===== CERVEZAS ===== */
-{id:"b1",name:"Corona 330ml",price:"Consultar",img:"IMG_8737.jpeg"},
-{id:"b2",name:"Heineken",price:"Consultar",img:"IMG_8737.jpeg"},
-{id:"b3",name:"Stella Artois",price:"Consultar",img:"IMG_8737.jpeg"},
-{id:"b4",name:"Budweiser",price:"Consultar",img:"IMG_8737.jpeg"},
-{id:"b5",name:"Quilmes",price:"Consultar",img:"IMG_8737.jpeg"},
-{id:"b6",name:"Patagonia",price:"Consultar",img:"IMG_8737.jpeg"},
+      // ====== FERNET / AMARGOS ======
+      { name:"Fernet 1882 750ml",                cat:"Fernet", price:"Consultar", img:"IMG_8733.webp" },
+      { name:"Fernet Capri 750ml",               cat:"Fernet", price:"Consultar", img:"IMG_8733.webp" },
 
-/* ===== VINOS ===== */
-{id:"vi1",name:"Malbec",price:"Consultar",img:"IMG_8733.webp"},
-{id:"vi2",name:"Cabernet Sauvignon",price:"Consultar",img:"IMG_8733.webp"},
-{id:"vi3",name:"Espumante",price:"Consultar",img:"IMG_8733.webp"},
+      // ====== VINOS / ESPUMANTES ======
+      { name:"Vino Malbec 750ml",                cat:"Vino", price:"Consultar" },
+      { name:"Vino Cabernet Sauvignon 750ml",    cat:"Vino", price:"Consultar" },
+      { name:"Vino Chardonnay 750ml",            cat:"Vino", price:"Consultar" },
+      { name:"Espumante 750ml",                  cat:"Vino", price:"Consultar" },
 
-/* ===== ENERGIZANTES ===== */
-{id:"e1",name:"Red Bull",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"e2",name:"Monster",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"e3",name:"Speed",price:"Consultar",img:"IMG_8735.jpeg"},
+      // ====== RON ======
+      { name:"Havana Club 750ml",                cat:"Ron", price:"Consultar" },
+      { name:"Bacardi Carta Blanca 750ml",       cat:"Ron", price:"Consultar" },
+      { name:"Bacardi Oro 750ml",                cat:"Ron", price:"Consultar" },
 
-/* ===== GASEOSAS ===== */
-{id:"s1",name:"Coca Cola 2.25L",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"s2",name:"Coca Cola Zero",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"s3",name:"Sprite",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"s4",name:"Fanta",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"s5",name:"Pepsi",price:"Consultar",img:"IMG_8735.jpeg"},
+      // ====== TEQUILA ======
+      { name:"José Cuervo Especial 750ml",       cat:"Tequila", price:"Consultar" },
+      { name:"Olmeca 750ml",                     cat:"Tequila", price:"Consultar" },
 
-/* ===== AGUAS Y JUGOS ===== */
-{id:"a1",name:"Agua Mineral",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"a2",name:"Agua con Gas",price:"Consultar",img:"IMG_8735.jpeg"},
-{id:"a3",name:"Jugo Baggio",price:"Consultar",img:"IMG_8735.jpeg"}
+      // ====== APERITIVOS / LICORES ======
+      { name:"Aperol 750ml",                     cat:"Licores", price:"Consultar" },
+      { name:"Campari 750ml",                    cat:"Licores", price:"Consultar" },
+      { name:"Jägermeister 700ml",               cat:"Licores", price:"Consultar" },
+      { name:"Baileys 750ml",                    cat:"Licores", price:"Consultar" },
+      { name:"Kahlúa 1L",                        cat:"Licores", price:"Consultar" },
 
-];
+      // ====== ENERGIZANTES ======
+      { name:"Red Bull 250ml",                   cat:"Energizante", price:"Consultar" },
+      { name:"Monster 473ml",                    cat:"Energizante", price:"Consultar" },
+      { name:"Speed 473ml",                      cat:"Energizante", price:"Consultar" },
 
-const grid=document.getElementById("grid");
+      // ====== GASEOSAS / MIXERS ======
+      { name:"Coca Cola 2.25L",                  cat:"Gaseosa", price:"Consultar" },
+      { name:"Coca Cola Zero 2.25L",             cat:"Gaseosa", price:"Consultar" },
+      { name:"Sprite 2.25L",                     cat:"Gaseosa", price:"Consultar" },
+      { name:"Fanta Naranja 2.25L",              cat:"Gaseosa", price:"Consultar" },
+      { name:"Tónica 1.5L",                      cat:"Mixers", price:"Consultar" },
+      { name:"Ginger Ale 1.5L",                  cat:"Mixers", price:"Consultar" },
+      { name:"Soda 1.5L",                        cat:"Mixers", price:"Consultar" },
 
-products.forEach((p,i)=>{
-grid.innerHTML+=`
-<div class="card">
-<img src="${p.img}">
-<div class="info">
-<div class="name">${p.name}</div>
-<div class="price">${p.price}</div>
-<button onclick="add(${i})">Agregar</button>
-</div>
-</div>`;
-});
+      // ====== AGUAS ======
+      { name:"Agua Mineral 2L",                  cat:"Agua", price:"Consultar" },
+      { name:"Agua con gas 2L",                  cat:"Agua", price:"Consultar" },
+      { name:"Agua saborizada 1.5L",             cat:"Agua", price:"Consultar" },
 
-function add(i){
-const id=products[i].id;
-cart[id]=(cart[id]||0)+1;
-document.getElementById("count").innerText=
-Object.values(cart).reduce((a,b)=>a+b,0);
-}
+      // ====== SNACKS (OPCIONAL) ======
+      { name:"Papas snack",                      cat:"Snacks", price:"Consultar" },
+      { name:"Maní",                             cat:"Snacks", price:"Consultar" }
+    ];
 
-function sendOrder(){
+    const grid  = document.getElementById("grid");
+    const q     = document.getElementById("q");
+    const pills = document.getElementById("pills");
+    const waBtn = document.getElementById("waBtn");
 
-if(Object.keys(cart).length===0){
-alert("Agrega productos primero");
-return;
-}
+    let activeCat = "Todos";
 
-let msg="Hola Liquorland 👋%0AQuiero pedir:%0A%0A";
+    function waLink(p){
+      const msg =
+        `Hola Liquorland 👋\n` +
+        `Quiero pedir:\n` +
+        `• ${p.name}\n` +
+        `Precio: ${p.price}\n\n` +
+        `Mi zona / dirección: `;
+      return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+    }
 
-for(let id in cart){
-let p=products.find(x=>x.id===id);
-msg+=`• ${cart[id]} x ${p.name}%0A`;
-}
+    function makeCard(p){
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <div class="imgWrap">
+          <img src="${p.img || ""}" alt="${p.name}" loading="lazy"
+               onerror="this.onerror=null; this.remove(); this.parentElement.style.background='#fff';" />
+        </div>
+        <div class="content">
+          <p class="name">${p.name}</p>
+          <p class="meta">${p.cat}</p>
+          <p class="price">${p.price}</p>
+          <button class="btn" type="button">Pedir</button>
+        </div>
+      `;
+      div.querySelector("button").addEventListener("click", () => {
+        window.open(waLink(p), "_blank");
+      });
+      return div;
+    }
 
-msg+="%0AMi dirección:";
+    function render(){
+      const term = (q.value || "").trim().toLowerCase();
+      grid.innerHTML = "";
 
-window.open(`https://wa.me/${WA}?text=${msg}`);
-}
+      const filtered = products.filter(p => {
+        const okCat = (activeCat === "Todos") || (p.cat === activeCat);
+        const okTerm = !term || p.name.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term);
+        return okCat && okTerm;
+      });
 
-</script>
+      filtered.forEach(p => grid.appendChild(makeCard(p)));
+    }
 
+    function renderPills(){
+      const cats = ["Todos", ...Array.from(new Set(products.map(p => p.cat)))];
+      pills.innerHTML = "";
+      cats.forEach(cat => {
+        const b = document.createElement("div");
+        b.className = "pill" + (cat === activeCat ? " active" : "");
+        b.textContent = cat;
+        b.addEventListener("click", () => {
+          activeCat = cat;
+          renderPills();
+          render();
+        });
+        pills.appendChild(b);
+      });
+    }
+
+    q.addEventListener("input", render);
+
+    waBtn.addEventListener("click", () => {
+      const msg = `Hola Liquorland 👋\nQuiero hacer un pedido.\nMi zona / dirección: `;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+    });
+
+    renderPills();
+    render();
+  </script>
 </body>
 </html>
