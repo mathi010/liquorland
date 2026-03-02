@@ -133,11 +133,16 @@ img:"IMG_8737.jpg"
 }
 
 ];
-
-function waLink(name){
-const text=encodeURIComponent("Hola! Quiero pedir: "+name);
-return `https://wa.me/${WA}?text=${text}`;
+function waLink(p){
+  const msg =
+    `Hola Liquorland 👋%0A` +
+    `Quiero pedir:%0A` +
+    `• ${p.name}%0A` +
+    `Precio: ${p.price}%0A%0A` +
+    `Mi zona / dirección: `;
+  return `https://wa.me/${WA}?text=${msg}`;
 }
+
 
 const grid=document.getElementById("grid");
 
