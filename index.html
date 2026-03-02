@@ -1,44 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Liquorland</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background-color: #111;
-  color: white;
-  padding-top: 40px;
-}
-
-h1 {
-  color: gold;
-  font-size: 42px;
-}
-
-.button {
-  background-color: gold;
-  color: black;
-  padding: 15px 25px;
-  text-decoration: none;
-  font-size: 18px;
-  border-radius: 10px;
-  display:inline-block;
-  margin-top:20px;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liquorland | San Juan Delivery</title>
+  <meta name="description" content="Liquor delivery in San Juan. Browse products and order via WhatsApp." />
+  <style>
+    :root{
+      --bg:#0f0f10; --card:#17181a; --text:#ffffff; --muted:#b7b7b7;
+      --gold:#d4af37; --line:#2a2b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,system-ui,-apple-system,Segoe UI,Roboto;background:var(--bg);color:var(--text)}
+    header{position:sticky;top:0;background:rgba(15,15,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:10}
+    .wrap{max-width:1050px;margin:0 auto;padding:16px}
+    .top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#7a5b00)}
+    h1{margin:0;font-size:22px;letter-spacing:.5px}
+    .tag{color:var(--muted);font-size:13px;margin-top:2px}
+    .search{flex:1;min-width:220px;display:flex;gap:10px;justify-content:flex-end}
+    input{
+      width:100%;max-width:420px;padding:12px 12px;border-radius:12px;border:1px solid var(--line);
+      background:#101114;color:var(--text);outline:none
+    }
+    .pillbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .pill{
+      border:1px solid var(--line);background:#121317;color:var(--text);
+      padding:8px 10px;border-radius:999px;font-size:13px;cursor:pointer;user-select:none
+    }
+    .pill.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,175,55,.18) inset}
+    main{padding:18px 0 80px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:820px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+      display:flex;flex-direction:column;min-height:210px
+    }
+    .img{
+      height:110px;background:linear-gradient(135deg,#2a2b2f,#111);
+      display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px
+    }
+    .content{padding:12px 12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .name{font-weight:700}
+    .meta{color:var(--muted);font-size:13px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+    .price{color:var(--gold);font-weight:800}
+    .btn{
+      display:inline-block;text-align:center;text-decoration:none;font-weight:800;
+      background:var(--gold);color:#000;padding:10px 12px;border-radius:12px;white-space:nowrap
+    }
+    footer{position:fixed;bottom:0;left:0;right:0;background:#0f0f10;border-top:1px solid var(--line)}
+    .foot{max-width:1050px;margin:0 auto;padding:12px 16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .small{color:var(--muted);font-size:12px}
+    .wa{color:var(--gold);font-weight:800;text-decoration:none}
+  </style>
 </head>
-
 <body>
 
-<h1>Liquorland</h1>
-<p>Premium Liquor Delivery in San Juan</p>
-<p>Fast Delivery • Cold Drinks • Best Prices</p>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Liquorland</h1>
+          <div class="tag">San Juan • Delivery • Order via WhatsApp</div>
+        </div>
+      </div>
 
-<a class="button" href="https://wa.me/61423703514">
-Order via WhatsApp
-</a>
+      <div class="search">
+        <input id="q" placeholder="Search (e.g., Fernet, Vodka, Corona)..." />
+      </div>
+    </div>
+
+    <div class="pillbar" id="cats">
+      <div class="pill active" data-cat="all">All</div>
+      <div class="pill" data-cat="Fernet">Fernet</div>
+      <div class="pill" data-cat="Whisky">Whisky</div>
+      <div class="pill" data-cat="Vodka">Vodka</div>
+      <div class="pill" data-cat="Gin">Gin</div>
+      <div class="pill" data-cat="Beer">Beer</div>
+      <div class="pill" data-cat="Wine">Wine</div>
+      <div class="pill" data-cat="Energy">Energy</div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <div class="foot">
+    <div class="small">© <span id="year"></span> Liquorland • Prices may change • +61 423 703 514</div>
+    <a class="wa" href="https://wa.me/61423703514" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  const WA = "61423703514"; // your WhatsApp in international format (no +)
+  const products = [
+    // ---- SAMPLE PRODUCTS (edit these) ----
+    {name:"Fernet Branca 750ml", cat:"Fernet", price:"ARS 0", note:"Classic", img:"Add photo later"},
+    {name:"Whisky Jameson 750ml", cat:"Whisky", price:"ARS 0", note:"Irish", img:"Add photo later"},
+    {name:"Vodka Smirnoff 750ml", cat:"Vodka", price:"ARS 0", note:"Original", img:"Add photo later"},
+    {name:"Gin Bombay Sapphire 750ml", cat:"Gin", price:"ARS 0", note:"Premium", img:"Add photo later"},
+    {name:"Corona 330ml (x6)", cat:"Beer", price:"ARS 0", note:"Bottles", img:"Add photo later"},
+    {name:"Malbec 750ml", cat:"Wine", price:"ARS 0", note:"Red wine", img:"Add photo later"},
+    {name:"Red Bull 250ml (x4)", cat:"Energy", price:"ARS 0", note:"Energy drink", img:"Add photo later"},
+  ];
+
+  let activeCat = "all";
+  const grid = document.getElementById("grid");
+  const q = document.getElementById("q");
+
+  function waLink(p){
+    const text = encodeURIComponent(`Hi Liquorland! I want to order: ${p.name} (${p.price}). My address is: `);
+    return `https://wa.me/${WA}?text=${text}`;
+  }
+
+  function card(p){
+    return `
+      <div class="card" data-cat="${p.cat}">
+        <div class="img">${p.img || "Photo"}</div>
+        <div class="content">
+          <div class="name">${p.name}</div>
+          <div class="meta">${p.cat} • ${p.note || ""}</div>
+          <div class="row">
+            <div class="price">${p.price}</div>
+            <a class="btn" href="${waLink(p)}" target="_blank" rel="noopener">Order</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function render(){
+    const term = (q.value || "").toLowerCase().trim();
+    const filtered = products.filter(p => {
+      const matchesCat = activeCat === "all" || p.cat === activeCat;
+      const matchesText = !term || (p.name + " " + p.cat + " " + (p.note||"")).toLowerCase().includes(term);
+      return matchesCat && matchesText;
+    });
+    grid.innerHTML = filtered.map(card).join("") || `<div class="small">No products found.</div>`;
+  }
+
+  document.getElementById("cats").addEventListener("click", (e)=>{
+    const pill = e.target.closest(".pill");
+    if(!pill) return;
+    document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));
+    pill.classList.add("active");
+    activeCat = pill.dataset.cat;
+    render();
+  });
+
+  q.addEventListener("input", render);
+  document.getElementById("year").textContent = new Date().getFullYear();
+  render();
+</script>
 
 </body>
 </html>
