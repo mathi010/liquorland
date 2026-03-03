@@ -1,536 +1,118 @@
-/* =========================
-   LIQUORLAND — APP UI CSS
-   ========================= */
-
-:root{
-  --bg:#0b0b0c;
-  --panel:#121214;
-  --card:#16171a;
-  --card2:#1b1c20;
-  --text:#f5f6f7;
-  --muted:#a6a8ad;
-  --line:#23242a;
-  --accent:#ff7a1a;
-  --accent2:#2aa7ff;
-
-  --r-xl:22px;
-  --r-lg:18px;
-  --r-md:14px;
-
-  --shadow: 0 16px 40px rgba(0,0,0,.45);
-}
-
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  background: radial-gradient(1200px 600px at 30% 0%, rgba(255,122,26,.20), transparent 65%),
-              radial-gradient(900px 600px at 80% 30%, rgba(42,167,255,.14), transparent 60%),
-              var(--bg);
-  color:var(--text);
-}
-
-a{color:inherit}
-
-/* =========================
-   TOPBAR
-========================= */
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 14px 10px;
-  background: rgba(11,11,12,.78);
-  backdrop-filter: blur(14px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.topbar__brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
-}
-.logo{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  background: linear-gradient(180deg, rgba(255,122,26,.22), rgba(0,0,0,.22));
-  border: 1px solid rgba(255,122,26,.35);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-}
-.brandtext{min-width:0}
-.brandname{
-  font-weight:900;
-  font-size:18px;
-  line-height:1.1;
-}
-.brandsub{
-  color:var(--muted);
-  font-weight:600;
-  font-size:13px;
-  margin-top:2px;
-}
-
-.cartbtn{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.10);
-  color:var(--text);
-}
-.cartbtn:active{transform:scale(.98)}
-.carticon{font-size:18px}
-.cartcount{
-  min-width:26px;
-  height:22px;
-  padding:0 8px;
-  border-radius:999px;
-  background: rgba(255,122,26,.85);
-  color:#0b0b0c;
-  font-weight:900;
-  display:grid;
-  place-items:center;
-}
-
-/* =========================
-   WRAP / SECTIONS
-========================= */
-.wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:12px 12px 26px;
-}
-
-.h2{
+/* ===== Reset ===== */
+* {
   margin: 0;
-  font-size:22px;
-  letter-spacing:-.02em;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-section{
-  background: rgba(0,0,0,.14);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--r-xl);
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-  padding:14px;
-  margin: 12px 0;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #1a0f08 0%, #000000 100%);
+  color: white;
+  min-height: 100vh;
 }
 
-/* =========================
-   HERO BANNERS
-========================= */
-.hero{
-  padding: 12px;
-  overflow:hidden;
+/* ===== Splash ===== */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #1a0f08 0%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
 }
-.hero__track{
-  display:flex;
-  gap:12px;
-  overflow:auto;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px;
+
+.splash__card {
+  text-align: center;
 }
-.hero__track::-webkit-scrollbar{display:none}
-.heroCard{
-  min-width: 86%;
-  scroll-snap-align:start;
+
+.splash__icon {
+  width: 90px;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,.10);
-  overflow:hidden;
-  position:relative;
-  box-shadow: 0 18px 50px rgba(0,0,0,.35);
-}
-.heroCard__inner{
-  padding:18px;
-  min-height: 150px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:10px;
-}
-.heroTitle{
-  font-size:24px;
-  font-weight:950;
-  letter-spacing:-.02em;
-}
-.heroSub{
-  color: rgba(245,246,247,.80);
-  font-weight:650;
-  line-height:1.25;
-}
-.heroCta{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin-top:6px;
-}
-.chip{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px 12px;
-  border-radius:999px;
-  font-weight:900;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.22);
-}
-.hero__dots{
-  display:flex;
-  gap:7px;
-  justify-content:center;
-  margin-top: 10px;
-}
-.dot{
-  width:7px;height:7px;border-radius:99px;
-  background: rgba(255,255,255,.18);
-}
-.dot--on{background: rgba(255,122,26,.95)}
-
-/* =========================
-   AGE GATE
-========================= */
-.agegate{
-  position:fixed;
-  inset:0;
-  z-index:999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:
-    radial-gradient(1200px 700px at 30% 0%, rgba(255,122,26,.35), transparent 65%),
-    rgba(0,0,0,.85);
-  backdrop-filter: blur(12px);
-}
-.agegate__card{
-  width:100%;
-  max-width:520px;
-  background: rgba(18,18,20,.95);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:24px;
-  padding:22px;
-  box-shadow:0 30px 80px rgba(0,0,0,.6);
-}
-.agegate__badge{
-  width:48px;
-  height:32px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  background: rgba(255,122,26,.20);
-  border:1px solid rgba(255,122,26,.35);
-}
-.agegate__title{
-  margin:10px 0 6px;
-  font-size:32px;
-  letter-spacing:-.02em;
-}
-.agegate__text{
-  margin:0 0 14px;
-  color:var(--muted);
-  line-height:1.35;
-}
-.agegate__actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin: 10px 0 10px;
-}
-.agegate__fineprint{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
+  margin-bottom: 15px;
 }
 
-/* =========================
-   BUTTONS / PILLS
-========================= */
-.btn{
-  border:none;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:11px 14px;
-  border-radius: 14px;
-  font-weight:900;
-  color:var(--text);
-  background: rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.10);
-}
-.btn:active{transform:scale(.98)}
-.btn--primary{
-  background: linear-gradient(180deg, rgba(255,122,26,1), rgba(255,122,26,.85));
-  color:#0b0b0c;
-  border:1px solid rgba(255,122,26,.45);
-}
-.btn--ghost{
-  background: rgba(255,255,255,.06);
-}
-.btn--full{
-  width:100%;
-  padding:14px 16px;
-  border-radius: 16px;
-  font-size:16px;
-}
-.btn--sm{
-  padding:9px 12px;
-  border-radius: 12px;
-  font-size:14px;
+.splash__title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 6px;
 }
 
-.mode__row{display:flex;gap:10px;flex-wrap:wrap}
-.mode__note{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-weight:650;
+.splash__sub {
+  opacity: 0.7;
+  margin-bottom: 15px;
 }
 
-.pill{
-  border:none;
-  cursor:pointer;
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:950;
-  color:var(--text);
-  background: rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.10);
-}
-.pill--active{
-  background: rgba(255,122,26,.16);
-  border:1px solid rgba(255,122,26,.38);
+.splash__bar {
+  width: 150px;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: auto;
 }
 
-/* =========================
-   SEARCH
-========================= */
-.search__bar{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-.search input{
-  width:100%;
-  padding:12px 14px;
-  border-radius: 14px;
-  outline:none;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.30);
-  color:var(--text);
-}
-.search input::placeholder{color:rgba(245,246,247,.45)}
-.bullets{
-  margin-top:10px;
-  display:grid;
-  gap:6px;
-  color:var(--muted);
-  font-weight:650;
+.splash__bar span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: orange;
+  animation: loading 1s infinite;
 }
 
-/* =========================
-   OFERTAS ROW
-========================= */
-.offers__head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
-.offers__row{
-  display:flex;
-  gap:12px;
-  overflow:auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type:x mandatory;
-  padding-bottom: 4px;
-}
-.offers__row::-webkit-scrollbar{display:none}
-
-.offerCard{
-  min-width: 78%;
-  scroll-snap-align:start;
-  background: linear-gradient(180deg, rgba(22,23,26,.92), rgba(18,18,20,.92));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
-  padding:12px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
-}
-.offerCard img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  border-radius: 14px;
-  margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.06);
-}
-.offerCard h3{margin:4px 0 6px;font-size:16px}
-.offerCard p{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.35}
-.offerBottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-.offerBottom strong{font-size:18px}
-.offerBottom button{
-  border:none;
-  padding:10px 12px;
-  border-radius: 14px;
-  font-weight:950;
-  background: rgba(255,255,255,.92);
-  color:#0b0b0c;
-  cursor:pointer;
-}
-.offerBottom button:active{transform:scale(.98)}
-
-/* =========================
-   CATEGORIES
-========================= */
-.categories{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.cat{
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.06);
-  color: var(--accent2);
-  font-weight:950;
-  cursor:pointer;
-}
-.cat:active{transform:scale(.98)}
-
-/* =========================
-   PRODUCT GRID (APP CARDS)
-========================= */
-#products{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:14px;
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
 }
 
-.card{
-  background: linear-gradient(180deg, rgba(22,23,26,.92), rgba(18,18,20,.92));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
-  padding:12px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
-  overflow:hidden;
+/* ===== Age Gate ===== */
+.agegate {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
 }
 
-.card img{
-  width:100%;
-  height:170px;
-  object-fit:cover;
-  border-radius: 14px;
-  margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.06);
+.agegate__card {
+  background: #111;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
 }
 
-.card h3{
-  margin:4px 0 6px;
-  font-size:16px;
-  letter-spacing:-.01em;
+.agegate__badge {
+  background: orange;
+  padding: 6px 12px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.card p{
-  margin:0 0 10px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
-  min-height:34px;
+.agegate__title {
+  margin-bottom: 10px;
 }
 
-.card strong{
-  display:block;
-  font-size:18px;
-  margin: 0 0 10px;
+.agegate button {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.card button{
-  width:100%;
-  border:none;
-  padding:11px 12px;
-  border-radius: 14px;
-  font-weight:950;
-  background: rgba(255,255,255,.92);
-  color:#0b0b0c;
-  cursor:pointer;
-}
-.card button:active{transform:scale(.98)}
-
-/* =========================
-   CHECKOUT
-========================= */
-.checkout .fine{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-weight:650;
-  font-size:13px;
-}
-.installRow{margin-top:10px}
-
-/* =========================
-   FLOATING WHATSAPP BUTTON
-========================= */
-.fab{
-  position:fixed;
-  right:14px;
-  bottom:16px;
-  z-index:60;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 14px;
-  border-radius:999px;
-  background: rgba(37, 211, 102, .92);
-  color:#0b0b0c;
-  font-weight:950;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 18px 60px rgba(0,0,0,.45);
-  text-decoration:none;
-}
-.fab:active{transform:scale(.98)}
-.fab__icon{font-size:18px}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (min-width: 720px){
-  .wrap{padding:18px 18px 32px}
-  #products{grid-template-columns: repeat(3, 1fr)}
-  .card img{height:180px}
-  .heroCard{min-width: 56%}
-  .offerCard{min-width: 44%}
-}
-@media (min-width: 980px){
-  #products{grid-template-columns: repeat(4, 1fr)}
-  .heroCard{min-width: 42%}
-  .offerCard{min-width: 32%}
+.agegate button:first-child {
+  background: orange;
+  color: black;
 }
 
-/* nice focus */
-button:focus, a:focus, input:focus{
-  outline: 2px solid rgba(42,167,255,.45);
-  outline-offset: 2px;
+.agegate button:last-child {
+  background: #333;
+  color: white;
 }
