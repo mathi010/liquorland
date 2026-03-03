@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>LiquorStore | Bebidas Premium & Económicas | Delivery 24hs — San Juan</title>
+  <meta name="description" content="LiquorStore — Bebidas premium y económicas con precios. Delivery 24hs en San Juan (zona sujeta a disponibilidad). Pedidos por WhatsApp." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- OpenGraph / Preview en WhatsApp -->
+  <meta property="og:title" content="LiquorStore | Delivery 24hs — San Juan" />
+  <meta property="og:description" content="Catálogo con precios. Bebidas premium y económicas. Pedidos por WhatsApp. Zona sujeta a disponibilidad." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+  <!-- Podés cambiar la imagen después; por ahora queda una premium -->
+  <meta property="og:image" content="https://images.unsplash.com/photo-1510627498534-cf7e9002facc?auto=format&fit=crop&w=1200&q=70" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Favicon (logo simple dorado) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0b0c'/%3E%3Cpath d='M24 10h16v6l-3 6v16H27V22l-3-6v-6z' fill='%23c6a75e'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --bg2:#0f0f12;
+      --card:#141419;
+      --card2:#101014;
+      --text:#f5f6f7;
+      --muted:#b6bcc6;
+      --muted2:#8b93a2;
+
+      --gold:#c6a75e;
+      --gold2:#e7d39b;
+      --line:rgba(255,255,255,.09);
+
+      --ok:#25D366;
+      --danger:#ff5a5f;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.40);
+
+      --radius:18px;
+      --radius2:14px;
+      --max:1160px;
+
+      --ease:cubic-bezier(.2,.8,.2,1);
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(1000px 520px at 18% -10%, rgba(198,167,94,.16), transparent 60%),
+        radial-gradient(900px 520px at 92% 10%, rgba(255,255,255,.06), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    button{font-family:inherit}
+    img{max-width:100%}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Header (premium sticky) */
+    .header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(11,11,12,.88), rgba(11,11,12,.70));
+      border-bottom:1px solid var(--line);
+    }
+    .bar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:190px;
+    }
+    .mark{
+      width:40px; height:40px; border-radius:12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(231,211,155,.35), rgba(198,167,94,.20) 35%, rgba(255,255,255,.06) 60%),
+        linear-gradient(145deg, rgba(198,167,94,.35), rgba(0,0,0,.1));
+      border:1px solid rgba(198,167,94,.28);
+      box-shadow: 0 10px 25px rgba(0,0,0,.35);
+      display:grid; place-items:center;
+    }
+    .mark svg{width:22px; height:22px; fill:var(--gold2)}
+    .brand h1{
+      margin:0; font-family:"Playfair Display",serif;
+      font-size:18px; letter-spacing:.6px; line-height:1.1;
+    }
+    .brand small{
+      display:block; margin-top:2px;
+      font-size:12px; color:var(--muted2); letter-spacing:.2px;
+    }
+
+    .nav{display:flex; align-items:center; gap:10px; justify-content:flex-end; flex:1}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .18s var(--ease), border-color .18s var(--ease), filter .18s var(--ease);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pill:hover{transform:translateY(-1px); border-color:rgba(198,167,94,.35)}
+    .pill svg{width:18px; height:18px; fill:currentColor}
+
+    .pill.gold{
+      background: linear-gradient(180deg, rgba(198,167,94,.98), rgba(171,142,70,.94));
+      color:#0b0b0c;
+      border-color: rgba(231,211,155,.35);
+      font-weight:700;
+      box-shadow: 0 12px 28px rgba(198,167,94,.14);
+    }
+    .pill.gold:hover{filter:brightness(1.05)}
+
+    .badge{
+      font-size:12px; font-weight:800;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(0,0,0,.18);
+      padding:3px 8px; border-radius:999px;
+    }
+
+    /* Hero */
+    .hero{padding:26px 0 10px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .heroCard{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow2);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+      min-height:280px;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 240px at 10% 0%, rgba(198,167,94,.18), transparent 60%),
+        radial-gradient(700px 240px at 90% 20%, rgba(255,255,255,.07), transparent 58%);
+      pointer-events:none;
+      opacity:.95;
+    }
+    .heroCard > *{position:relative; z-index:1}
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--muted2);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:99px; background:var(--gold);
+      box-shadow:0 0 0 6px rgba(198,167,94,.12);
+    }
+    .heroTitle{
+      margin:10px 0 10px;
+      font-family:"Playfair Display",serif;
+      font-size:44px;
+      line-height:1.02;
+      letter-spacing:.2px;
+    }
+    .heroTitle span{color:var(--gold2)}
+    .heroText{
+      margin:0;
+      color:var(--muted);
+      max-width:56ch;
+      font-size:15.5px;
+      line-height:1.55;
+    }
+    .heroRow{
+      margin-top:16px;
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center;
+    }
+    .mini{
+      display:flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .mini svg{width:18px; height:18px; fill:var(--gold)}
+    .heroSide{
+      display:grid;
+      grid-template-rows: 1fr 1fr;
+      gap:18px;
+    }
+    .promo{
+      border:1px solid rgba(198,167,94,.28);
+      background: linear-gradient(180deg, rgba(198,167,94,.14), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .promo h3{
+      margin:0 0 6px;
+      font-family:"Playfair Display",serif;
+      letter-spacing:.2px;
+      font-size:20px;
+    }
+    .promo p{
+      margin:0;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.5;
+    }
+    .promo .tag{
+      display:inline-block;
+      margin-top:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      font-weight:700;
+      color:var(--gold2);
+      font-size:12px;
+    }
+    .photoCard{
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+      background:#000;
+      min-height:170px;
+    }
+    .photoCard img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.05) contrast(1.03);
+      opacity:.95;
+      transform:scale(1.02);
+    }
+    .photoOverlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78));
+      display:flex; align-items:flex-end;
+      padding:16px;
+    }
+    .photoOverlay .line1{font-weight:800; letter-spacing:.2px}
+    .photoOverlay .line2{color:var(--muted); font-size:13px; margin-top:4px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr}
+      .heroSide{grid-template-columns:1fr 1fr; grid-template-rows:auto}
+    }
+    @media (max-width: 720px){
+      .heroTitle{font-size:36px}
+      .heroSide{grid-template-columns:1fr}
+      .hideMobile{display:none}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important; transition:none !important; animation:none !important}
+    } 
+    <style>
+/* ====== PARTE 3/6 START ====== */
+
+/* Botones filtro (Parte 2) */
+.filterBtn{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  cursor:pointer;
+  transition: transform .18s var(--ease), border-color .18s var(--ease), filter .18s var(--ease);
+  font-weight:700;
+}
+.filterBtn:hover{ transform: translateY(-1px); border-color: rgba(198,167,94,.35); }
+.filterBtn.active{
+  background: linear-gradient(180deg, rgba(198,167,94,.98), rgba(171,142,70,.94));
+  color:#0b0b0c;
+  border-color: rgba(231,211,155,.35);
+}
+
+/* Cards del catálogo */
+.productCard{
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  overflow:hidden;
+  position:relative;
+  transition: transform .20s var(--ease), border-color .20s var(--ease);
+}
+.productCard:hover{ transform: translateY(-4px); border-color: rgba(198,167,94,.35); }
+
+.productImg{
+  height:170px;
+  background:#000;
+  position:relative;
+  overflow:hidden;
+}
+.productImg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform: scale(1.06);
+  filter: saturate(1.05) contrast(1.05);
+  opacity:.92;
+}
+.productImg:after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.65));
+}
+
+.productBody{
+  padding:16px 16px 14px;
+}
+.productName{
+  margin:0;
+  font-size:16px;
+  letter-spacing:.2px;
+  font-weight:800;
+}
+.productMeta{
+  margin:6px 0 10px;
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.4;
+}
+.productPriceRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.productPrice{
+  color: var(--gold2);
+  font-weight:900;
+  letter-spacing:.2px;
+}
+.btnAdd{
+  border:none;
+  border-radius:999px;
+  padding:10px 12px;
+  cursor:pointer;
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  border:1px solid var(--line);
+  font-weight:800;
+  transition: transform .18s var(--ease), border-color .18s var(--ease);
+}
+.btnAdd:hover{ transform: translateY(-1px); border-color: rgba(198,167,94,.35); }
+
+/* Badge categoría arriba de la imagen */
+.catBadge{
+  position:absolute;
+  top:12px; left:12px;
+  z-index:2;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  color:#0b0b0c;
+  background: linear-gradient(180deg, rgba(231,211,155,.95), rgba(198,167,94,.95));
+  border:1px solid rgba(0,0,0,.18);
+}
+
+/* ====== CARRITO DRAWER PREMIUM ====== */
+.drawerOverlay{
+  position:fixed; inset:0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .22s var(--ease);
+  z-index:80;
+}
+.drawer{
+  position:fixed;
+  top:0; right:0;
+  width:min(420px, 92vw);
+  height:100%;
+  background: linear-gradient(180deg, rgba(16,16,20,.98), rgba(12,12,14,.98));
+  border-left:1px solid var(--line);
+  box-shadow: var(--shadow);
+  transform: translateX(105%);
+  transition: transform .26s var(--ease);
+  z-index:90;
+  display:flex;
+  flex-direction:column;
+}
+.drawer.open{ transform: translateX(0); }
+.drawerOverlay.open{ opacity:1; pointer-events:auto; }
+
+.drawerHead{
+  padding:16px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.drawerHead h3{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  letter-spacing:.2px;
+}
+.drawerClose{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  border-radius:12px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+.drawerBody{
+  padding:12px 16px 14px;
+  overflow:auto;
+  flex:1;
+}
+.cartEmpty{
+  color: var(--muted);
+  padding:18px 0;
+  line-height:1.5;
+}
+
+.cartItem{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.cartItem strong{display:block}
+.cartItem small{color:var(--muted); display:block; margin-top:3px}
+.qtyRow{
+  display:flex; align-items:center; gap:8px;
+}
+.qtyBtn{
+  width:34px; height:34px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  cursor:pointer;
+  font-weight:900;
+}
+.qty{
+  min-width:18px;
+  text-align:center;
+  font-weight:900;
+  color: var(--gold2);
+}
+.removeBtn{
+  border:none;
+  background: transparent;
+  color: rgba(255,90,95,.95);
+  cursor:pointer;
+  font-weight:900;
+  margin-top:6px;
+}
+
+.drawerFoot{
+  padding:14px 16px 16px;
+  border-top:1px solid var(--line);
+}
+.totalRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+.totalRow span{color:var(--muted)}
+.totalRow strong{color:var(--text); letter-spacing:.2px}
+
+.btnPrimary{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:14px 14px;
+  cursor:pointer;
+  font-weight:900;
+  background: linear-gradient(180deg, rgba(198,167,94,.98), rgba(171,142,70,.94));
+  color:#0b0b0c;
+}
+.btnGhost{
+  width:100%;
+  margin-top:10px;
+  border-radius:14px;
+  padding:12px 14px;
+  cursor:pointer;
+  font-weight:900;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+}
+
+/* WhatsApp botón flotante */
+.fab{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:56px; height:56px;
+  border-radius:18px;
+  display:grid; place-items:center;
+  background: linear-gradient(180deg, rgba(37,211,102,.98), rgba(24,170,82,.98));
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+  z-index:70;
+  border:1px solid rgba(255,255,255,.10);
+}
+.fab svg{width:26px; height:26px; fill:white}
+
+/* ====== PARTE 3/6 END ====== */
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap">
+      <div class="bar">
+        <a class="brand" href="#top" aria-label="LiquorStore inicio">
+          <div class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 2h8v2l-2 3v5.2c0 .4.2.8.5 1.1l2.7 2.7c.5.5.8 1.2.8 1.9V22H6v-3.1c0-.7.3-1.4.8-1.9l2.7-2.7c.3-.3.5-.7.5-1.1V7L8 4V2zm2 2 1 2h2l1-2h-4z"/></svg>
+          </div>
+          <div>
+            <h1>LiquorStore</h1>
+            <small>Delivery 24hs • San Juan</small>
+          </div>
+        </a>
+
+        <nav class="nav">
+          <a class="pill hideMobile" href="#catalogo">Catálogo</a>
+          <a class="pill hideMobile" href="#experiencia">Experiencia</a>
+
+          <button class="pill" id="btnCart" type="button" aria-label="Abrir carrito">
+            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6.2 6l.6 3h10.7c.8 0 1.5-.5 1.8-1.2l1.5-3H6.2zM5 4H2V2h4.2c.5 0 .9.3 1 .8L7.5 5H22l-3 6.1c-.6 1.2-1.8 1.9-3.1 1.9H7.1l-.3 1.5H19v2H6.3c-.6 0-1.1-.2-1.5-.7-.4-.5-.5-1.1-.4-1.7L5.6 8 5 4z"/></svg>
+            Carrito <span class="badge" id="cartCount">0</span>
+          </button>
+
+          <button class="pill gold" id="btnWhatsappTop" type="button">
+            <svg viewBox="0 0 24 24"><path d="M20 3.9A10 10 0 0 0 3.1 18.4L2 22l3.7-1.1A10 10 0 1 0 20 3.9zm-8 17.1a8 8 0 0 1-4.1-1.1l-.3-.2-2.5.8.8-2.4-.2-.3A8 8 0 1 1 12 21zm4.4-6.1c-.2-.1-1.2-.6-1.4-.6s-.3-.1-.5.1-.5.6-.6.7-.2.2-.4.1a6.5 6.5 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3s-.5-1.3-.7-1.7c-.2-.5-.4-.4-.5-.4h-.4c-.1 0-.3 0-.4.2s-.6.6-.6 1.6.6 1.9.7 2.1a7.7 7.7 0 0 0 3 3 9.7 9.7 0 0 0 1 .4c.4.1.7.2 1 .1.3 0 1-.4 1.1-.8.1-.4.1-.8.1-.8s-.1-.1-.3-.2z"/></svg>
+            Pedir por WhatsApp
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div class="heroCard">
+            <div class="kicker"><span class="dot"></span> servicio exclusivo • 24hs</div>
+            <h2 class="heroTitle">Bebidas <span>premium</span> & económicas, con entrega discreta.</h2>
+            <p class="heroText">
+              Catálogo con precios actualizados. Pedidos directos por WhatsApp.
+              Cobertura de envío sujeta a disponibilidad (consultar zona).
+            </p>
+
+            <div class="heroRow">
+              <div class="mini">
+                <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0-6a10 10 0 0 0-9.9 12l-1.6 6L6 18.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.5.8.8-2.4-.2-.3A8 8 0 1 1 12 20z"/></svg>
+                Pedido por WhatsApp
+              </div>
+
+              <div class="mini">
+                <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5 3.8 9.7 9 12 5.2-2.3 9-7 9-12V5l-9-4zm0 20c-4.1-2-7-5.9-7-10V6.2L12 3l7 3.2V11c0 4.1-2.9 8-7 10z"/></svg>
+                Atención profesional
+              </div>
+
+              <div class="mini">
+                <svg viewBox="0 0 24 24"><path d="M12 8V4l8 8-8 8v-4H4V8h8zm-6 2v4h8v2l5-5-5-5v2H6z"/></svg>
+                Entrega rápida
+              </div>
+            </div>
+          </div>
+
+          <div class="heroSide">
+            <div class="promo">
+              <h3>Combos & Promos</h3>
+              <p>Selección curada: premium + económico. Ideal para previas, juntadas y regalos.</p>
+              <div class="tag">Zona de envío: consultar</div>
+            </div>
+
+            <div class="photoCard">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1510627498534-cf7e9002facc?auto=format&fit=crop&w=1400&q=70" alt="Bebidas premium" />
+              <div class="photoOverlay">
+                <div>
+                  <div class="line1">LiquorStore</div>
+                  <div class="line2">Elegancia en cada botella • 24hs</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PARTE 1 termina acá. No borres esta línea. -->
+        <!-- PART 1 END -->
+      </div>
+    </section>
+            </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- CATÁLOGO + BUSCADOR  -->
+      <!-- ===================== -->
+
+      <section id="catalogo" style="padding:40px 0;">
+        <div class="wrap">
+
+          <div style="display:flex;flex-wrap:wrap;gap:15px;align-items:center;justify-content:space-between;margin-bottom:25px;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:28px;margin:0;">
+              Catálogo con precios
+            </h2>
+
+            <input 
+              type="text" 
+              id="searchInput"
+              placeholder="Buscar bebida..."
+              style="
+                padding:10px 16px;
+                border-radius:999px;
+                border:1px solid var(--line);
+                background:#111;
+                color:white;
+                outline:none;
+                min-width:200px;
+              "
+            >
+          </div>
+
+          <!-- Filtros -->
+          <div id="categoryFilters" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;">
+            <button class="filterBtn active" data-category="all">Todos</button>
+            <button class="filterBtn" data-category="whisky">Whisky</button>
+            <button class="filterBtn" data-category="vino">Vino</button>
+            <button class="filterBtn" data-category="cerveza">Cerveza</button>
+            <button class="filterBtn" data-category="licor">Licores</button>
+          </div>
+
+          <!-- Grid Productos -->
+          <div id="productGrid" style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:25px;
+          ">
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- EXPERIENCIA SECTION  -->
+      <!-- ===================== -->
+
+      <section id="experiencia" style="padding:60px 0;">
+        <div class="wrap">
+          <h2 style="font-family:'Playfair Display',serif;font-size:28px;margin-bottom:20px;">
+            Experiencia LiquorStore
+          </h2>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
+            
+            <div style="background:#141419;padding:20px;border-radius:var(--radius);border:1px solid var(--line);">
+              <h3 style="margin-top:0;color:var(--gold2);">Premium & Económico</h3>
+              <p style="color:var(--muted);">Opciones para todos los presupuestos sin perder calidad.</p>
+            </div>
+
+            <div style="background:#141419;padding:20px;border-radius:var(--radius);border:1px solid var(--line);">
+              <h3 style="margin-top:0;color:var(--gold2);">Atención 24hs</h3>
+              <p style="color:var(--muted);">Siempre disponibles para tu pedido.</p>
+            </div>
+
+            <div style="background:#141419;padding:20px;border-radius:var(--radius);border:1px solid var(--line);">
+              <h3 style="margin-top:0;color:var(--gold2);">Entrega Discreta</h3>
+              <p style="color:var(--muted);">Servicio profesional y seguro.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    <!-- ============================= -->
+<!-- ===== PARTE 4/6 START ======= -->
+<!-- ============================= -->
+
+<!-- Overlay -->
+<div class="drawerOverlay" id="drawerOverlay"></div>
+
+<!-- Carrito Drawer -->
+<aside class="drawer" id="cartDrawer">
+  <div class="drawerHead">
+    <h3>Tu Pedido</h3>
+    <button class="drawerClose" onclick="closeCart()">✕</button>
+  </div>
+
+  <div class="drawerBody" id="cartItems">
+    <div class="cartEmpty">Tu carrito está vacío.</div>
+  </div>
+
+  <div class="drawerFoot">
+    <div class="totalRow">
+      <span>Total</span>
+      <strong id="cartTotal">ARS 0</strong>
+    </div>
+
+    <button class="btnPrimary" onclick="sendWhatsAppOrder()">
+      Finalizar por WhatsApp
+    </button>
+
+    <button class="btnGhost" onclick="clearCart()">
+      Vaciar carrito
+    </button>
+  </div>
+</aside>
+
+<!-- Botón flotante WhatsApp -->
+<a class="fab" id="whatsappFab" target="_blank">
+  <svg viewBox="0 0 24 24">
+    <path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.7 6L0 24l6.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.3zM12 21.5c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.3-.4A9.5 9.5 0 1 1 12 21.5zm5.2-7.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-1.6-.8-2.6-1.5-3.6-3.3-.3-.5.3-.5.8-1.7.1-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8 0 1.6 1.2 3.2 1.3 3.4.2.2 2.4 3.7 5.9 5 .8.3 1.4.5 1.9.6.8.2 1.6.2 2.2.1.7-.1 2.1-.9 2.4-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.6-.5z"/>
+  </svg>
+</a>
+
+<!-- Botón abrir carrito -->
+<button onclick="openCart()" style="
+  position:fixed;
+  top:18px;
+  right:18px;
+  background:#c6a75e;
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  z-index:75;">
+  🛒 Carrito
+</button>
+
+<!-- ============================= -->
+<!-- ===== PARTE 4/6 END ========= -->
+<!-- ============================= -->
+ <!-- ============================= -->
+<!-- ===== PARTE 5/6 START ======= -->
+<!-- ============================= -->
+
+<script>
+const WHATSAPP_NUMBER = "549423703514"; // CAMBIAR SI QUERÉS
+
+let cart = [];
+
+const products = [
+  { id:1, name:"Jack Daniels", price:32000, category:"whisky" },
+  { id:2, name:"Chivas Regal", price:38000, category:"whisky" },
+  { id:3, name:"Luigi Bosca", price:16000, category:"vino" },
+  { id:4, name:"Corona 710ml", price:3500, category:"cerveza" }
+];
+
+function addToCart(id){
+  const product = products.find(p=>p.id===id);
+  const existing = cart.find(item=>item.id===id);
+  if(existing){
+    existing.qty++;
+  } else {
+    cart.push({...product, qty:1});
+  }
+  renderCart();
+  openCart();
+}
+
+function renderCart(){
+  const container = document.getElementById("cartItems");
+  const totalEl = document.getElementById("cartTotal");
+
+  if(cart.length===0){
+    container.innerHTML = '<div class="cartEmpty">Tu carrito está vacío.</div>';
+    totalEl.innerText = "ARS 0";
+    return;
+  }
+
+  let total = 0;
+
+  container.innerHTML = cart.map(item=>{
+    total += item.price * item.qty;
+    return `
+      <div class="cartItem">
+        <div>
+          <strong>${item.name}</strong>
+          <small>ARS ${item.price.toLocaleString()}</small>
+          <div class="qtyRow">
+            <button class="qtyBtn" onclick="changeQty(${item.id}, -1)">-</button>
+            <div class="qty">${item.qty}</div>
+            <button class="qtyBtn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+          <button class="removeBtn" onclick="removeItem(${item.id})">Eliminar</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  totalEl.innerText = "ARS " + total.toLocaleString();
+}
+
+function changeQty(id, delta){
+  const item = cart.find(p=>p.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0){
+    cart = cart.filter(p=>p.id!==id);
+  }
+  renderCart();
+}
+
+function removeItem(id){
+  cart = cart.filter(p=>p.id!==id);
+  renderCart();
+}
+
+function clearCart(){
+  cart = [];
+  renderCart();
+}
+
+function openCart(){
+  document.getElementById("cartDrawer").classList.add("open");
+  document.getElementById("drawerOverlay").classList.add("open");
+}
+
+function closeCart(){
+  document.getElementById("cartDrawer").classList.remove("open");
+  document.getElementById("drawerOverlay").classList.remove("open");
+}
+
+document.getElementById("drawerOverlay").addEventListener("click", closeCart);
+
+function sendWhatsAppOrder(){
+  if(cart.length===0) return;
+
+  let message = "Hola LiquorStore, quiero pedir:%0A%0A";
+
+  cart.forEach(item=>{
+    message += `${item.qty}x ${item.name} - ARS ${item.price.toLocaleString()}%0A`;
+  });
+
+  const total = cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  message += `%0ATotal: ARS ${total.toLocaleString()}`;
+
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+  window.open(url, "_blank");
+}
+</script>
+
+<!-- ============================= -->
+<!-- ===== PARTE 5/6 END ========= -->
+<!-- ============================= -->
+    <!-- ============================= -->
+<!-- ===== PARTE 6/6 START ======= -->
+<!-- ============================= -->
+
+<script>
+/* ========= Config ========= */
+const CATEGORY_LABEL = {
+  all: "Todos",
+  whisky: "Whisky",
+  vino: "Vino",
+  cerveza: "Cerveza",
+  licor: "Licores"
+};
+
+// Imágenes premium (gratis). Podés cambiarlas por tus fotos después.
+const IMG_BY_CATEGORY = {
+  whisky: "https://images.unsplash.com/photo-1528826194825-5ed08ffdd0d8?auto=format&fit=crop&w=1400&q=70",
+  vino: "https://images.unsplash.com/photo-1516594917710-6c7ce8c13ae1?auto=format&fit=crop&w=1400&q=70",
+  cerveza: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1400&q=70",
+  licor: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1400&q=70"
+};
+
+const DEFAULT_IMG = "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=70";
+
+/* ========= Estado ========= */
+let currentCategory = "all";
+let currentQuery = "";
+
+/* ========= Render catálogo ========= */
+function moneyARS(n){
+  try { return "ARS " + Number(n).toLocaleString("es-AR"); }
+  catch { return "ARS " + n; }
+}
+
+function getProductImage(p){
+  return IMG_BY_CATEGORY[p.category] || DEFAULT_IMG;
+}
+
+function renderProducts(){
+  const grid = document.getElementById("productGrid");
+  if(!grid) return;
+
+  let list = [...products];
+
+  // filtro categoría
+  if(currentCategory !== "all"){
+    list = list.filter(p => p.category === currentCategory);
+  }
+
+  // filtro búsqueda
+  if(currentQuery.trim().length){
+    const q = currentQuery.trim().toLowerCase();
+    list = list.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      (p.category || "").toLowerCase().includes(q)
+    );
+  }
+
+  if(list.length === 0){
+    grid.innerHTML = `
+      <div style="
+        grid-column:1/-1;
+        padding:20px;
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        background:rgba(255,255,255,.03);
+        color:var(--muted);">
+        No encontramos resultados. Probá otra búsqueda o categoría.
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => `
+    <article class="productCard">
+      <div class="productImg">
+        <span class="catBadge">${CATEGORY_LABEL[p.category] || p.category}</span>
+        <img loading="lazy" src="${getProductImage(p)}" alt="${p.name}">
+      </div>
+      <div class="productBody">
+        <h3 class="productName">${p.name}</h3>
+        <div class="productMeta">
+          Precio actualizado • Atención 24hs • Envíos: consultar zona
+        </div>
+        <div class="productPriceRow">
+          <div class="productPrice">${moneyARS(p.price)}</div>
+          <button class="btnAdd" type="button" onclick="addToCart(${p.id})">Agregar</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+/* ========= Filtros (botones) ========= */
+function setupFilters(){
+  const container = document.getElementById("categoryFilters");
+  if(!container) return;
+
+  // Si los botones ya existen (Parte 2), los usamos:
+  const btns = container.querySelectorAll(".filterBtn");
+  btns.forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      btns.forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCategory = btn.dataset.category || "all";
+      renderProducts();
+    });
+  });
+}
+
+/* ========= Buscador ========= */
+function setupSearch(){
+  const input = document.getElementById("searchInput");
+  if(!input) return;
+
+  input.addEventListener("input", ()=>{
+    currentQuery = input.value || "";
+    renderProducts();
+  });
+}
+
+/* ========= Header Cart Button ========= */
+function setupHeaderCartButton(){
+  const btn = document.getElementById("btnCart");
+  if(btn){
+    btn.addEventListener("click", openCart);
+  }
+}
+
+/* ========= WhatsApp top + FAB ========= */
+function buildWhatsAppLinkForGeneral(){
+  const msg =
+    "Hola LiquorStore! Quiero consultar por delivery y precios.%0A" +
+    "Zona de envío: (mi zona) %0A" +
+    "Horario: 24hs %0A%0A" +
+    "Gracias!";
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+}
+
+function setupWhatsAppButtons(){
+  const topBtn = document.getElementById("btnWhatsappTop");
+  if(topBtn){
+    topBtn.addEventListener("click", ()=>{
+      // si hay carrito, manda pedido; si no, consulta general
+      if(cart && cart.length){ sendWhatsAppOrder(); }
+      else window.open(buildWhatsAppLinkForGeneral(), "_blank");
+    });
+  }
+
+  const fab = document.getElementById("whatsappFab");
+  if(fab){
+    fab.href = buildWhatsAppLinkForGeneral();
+  }
+}
+
+/* ========= Contador en header ========= */
+function updateCartCount(){
+  const el = document.getElementById("cartCount");
+  if(!el) return;
+  const count = cart.reduce((sum,i)=>sum + (i.qty||0), 0);
+  el.textContent = String(count);
+}
+
+// Enganchamos el contador a renderCart
+const _renderCartOriginal = renderCart;
+renderCart = function(){
+  _renderCartOriginal();
+  updateCartCount();
+  // Actualiza FAB para enviar pedido si hay carrito
+  const fab = document.getElementById("whatsappFab");
+  if(fab){
+    fab.onclick = (e)=>{
+      if(cart.length){
+        e.preventDefault();
+        sendWhatsAppOrder();
+      }
+    };
+  }
+};
+
+/* ========= INIT ========= */
+document.addEventListener("DOMContentLoaded", ()=>{
+  setupFilters();
+  setupSearch();
+  setupHeaderCartButton();
+  setupWhatsAppButtons();
+  renderProducts();
+  renderCart();
+});
+</script>
+
+<!-- ============================= -->
+<!-- ===== PARTE 6/6 END ========= -->
+<!-- ============================= -->
+</body>
+</html>
