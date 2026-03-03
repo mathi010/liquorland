@@ -7,77 +7,40 @@
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b0b0c">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="LiquorStore">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#ff7a00">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-512.png">
 
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- ================= Splash ================= -->
+<!-- SPLASH -->
 <div id="splash" class="splash">
-  <div class="splash__card">
-    <img class="splash__icon" src="icons/icon-192.png" alt="LiquorStore">
-    <div class="splash__title">LiquorStore</div>
-    <div class="splash__sub">San Juan, Argentina</div>
-    <div class="splash__bar"><span></span></div>
+  <div class="splash-card">
+    <img src="icons/icon-192.png" class="logo">
+    <h1>LiquorStore</h1>
+    <p>San Juan, Argentina</p>
   </div>
 </div>
 
-<!-- ================= Age Gate ================= -->
-<div class="agegate" id="ageGate">
-  <div class="agegate__card">
-    <div class="agegate__badge">+18</div>
-    <h1 class="agegate__title">Confirmación de edad</h1>
-    <p>Este sitio es solo para mayores de 18 años.</p>
-    <div class="agegate__actions">
-      <button onclick="acceptAge()">Soy mayor de 18</button>
-      <button onclick="window.location.href='https://google.com'">Salir</button>
-    </div>
+<!-- AGE GATE -->
+<div id="ageGate" class="agegate hidden">
+  <div class="age-card">
+    <h2>+18</h2>
+    <p>Debes ser mayor de edad para ingresar</p>
+    <button onclick="enterSite()">Soy mayor de 18</button>
   </div>
 </div>
 
-<!-- ================= Contenido Principal ================= -->
-<div id="app">
-  <!-- Tu contenido actual vive acá -->
+<!-- APP -->
+<div id="app" class="app hidden">
+  <h1>LiquorStore</h1>
+  <p>Delivery en San Juan</p>
+  <div id="products"></div>
 </div>
 
 <script src="app.js"></script>
-
-<!-- ================= Splash Script ================= -->
-<script>
-window.addEventListener("load", () => {
-  const splash = document.getElementById("splash");
-  if (!splash) return;
-  setTimeout(() => splash.style.opacity = "0", 500);
-  setTimeout(() => splash.remove(), 1100);
-});
-</script>
-
-<!-- ================= Age Gate Script ================= -->
-<script>
-function acceptAge() {
-  localStorage.setItem("ageVerified", "true");
-  document.getElementById("ageGate").style.display = "none";
-}
-
-window.addEventListener("load", () => {
-  if (localStorage.getItem("ageVerified") === "true") {
-    document.getElementById("ageGate").style.display = "none";
-  }
-});
-</script>
-
-<!-- ================= Service Worker ================= -->
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js");
-}
-</script>
 
 </body>
 </html>
