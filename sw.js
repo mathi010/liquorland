@@ -1,51 +1,77 @@
-const CACHE_NAME = "liquorland-v3"; // Cambiar número cada vez que actualices
+/* sw.js — LiquorStore PWA (cache estable + updates) */
 
-const urlsToCache = [
-  "/liquorland/",
-  "/liquorland/index.html",
-  "/liquorland/styles.css",
-  "/liquorland/script.js",
-  "/liquorland/manifest.json",
-  "/liquorland/icons/icon-192.png",
-  "/liquorland/icons/icon-512.png"
+const VERSION = "v7"; // <-- subí este número si volvés a cambiar cosas
+const CACHE_NAME = `liquorstore-${VERSION}`;
+
+const PRECACHE_URLS = [
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./app.js",
+  "./products.json",
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png",
 ];
 
-// INSTALAR
-self.addEventListener("install", event => {
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+  );
   self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
 });
 
-// ACTIVAR (borra versiones viejas)
-self.addEventListener("activate", event => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter((k) => k.startsWith("liquorstore-") && k !== CACHE_NAME)
+          .map((k) => caches.delete(k))
       );
-    })
+      await self.clients.claim();
+    })()
   );
-  self.clients.claim();
 });
 
-// FETCH (estrategia Network First)
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
-      })
-      .catch(() => caches.match(event.request))
-  );
+// Helper: network-first para HTML (para que siempre actualice)
+async function networkFirst(request) {
+  try {
+    const fresh = await fetch(request);
+    const cache = await caches.open(CACHE_NAME);
+    cache.put(request, fresh.clone());
+    return fresh;
+  } catch (e) {
+    const cached = await caches.match(request);
+    return cached || new Response("Offline", { status: 503 });
+  }
+}
+
+// Helper: cache-first para assets
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+
+  const fresh = await fetch(request);
+  const cache = await caches.open(CACHE_NAME);
+  cache.put(request, fresh.clone());
+  return fresh;
+}
+
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  const url = new URL(req.url);
+
+  // Solo manejamos mismo dominio
+  if (url.origin !== self.location.origin) return;
+
+  // Navegación / HTML -> network-first
+  if (req.mode === "navigate" || req.headers.get("accept")?.includes("text/html")) {
+    event.respondWith(networkFirst(req));
+    return;
+  }
+
+  // Assets -> cache-first
+  event.respondWith(cacheFirst(req));
 });
