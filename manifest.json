@@ -1,11 +1,10 @@
 {
   "name": "LiquorStore",
   "short_name": "LiquorStore",
-  "start_url": "/liquorland/",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#0b0b0c",
-  "theme_color": "#0b0b0c",
-  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#ff7a00",
   "icons": [
     {
       "src": "icons/icon-192.png",
