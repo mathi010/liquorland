@@ -1,118 +1,51 @@
-/* ===== Reset ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(180deg, #1a0f08 0%, #000000 100%);
+  background: linear-gradient(180deg,#1a0f08,#000);
   color: white;
-  min-height: 100vh;
+  text-align: center;
 }
 
-/* ===== Splash ===== */
+.hidden {
+  display: none;
+}
+
+/* Splash */
 .splash {
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #1a0f08 0%, #000000 100%);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.4s ease;
+  align-items: center;
+  background: linear-gradient(180deg,#1a0f08,#000);
 }
 
-.splash__card {
-  text-align: center;
-}
-
-.splash__icon {
-  width: 90px;
+.splash-card .logo {
+  width: 100px;
   border-radius: 20px;
-  margin-bottom: 15px;
 }
 
-.splash__title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.splash__sub {
-  opacity: 0.7;
-  margin-bottom: 15px;
-}
-
-.splash__bar {
-  width: 150px;
-  height: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: auto;
-}
-
-.splash__bar span {
-  display: block;
-  width: 40%;
-  height: 100%;
-  background: orange;
-  animation: loading 1s infinite;
-}
-
-@keyframes loading {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
-}
-
-/* ===== Age Gate ===== */
+/* Age gate */
 .agegate {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9998;
+  align-items: center;
+  background: rgba(0,0,0,0.9);
 }
 
-.agegate__card {
+.age-card {
   background: #111;
-  padding: 25px;
-  border-radius: 15px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
+  padding: 20px;
+  border-radius: 12px;
 }
 
-.agegate__badge {
-  background: orange;
-  padding: 6px 12px;
-  border-radius: 50px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-.agegate__title {
-  margin-bottom: 10px;
-}
-
-.agegate button {
-  margin: 10px 5px;
-  padding: 10px 15px;
+button {
+  background: #ff7a00;
   border: none;
+  padding: 10px 15px;
   border-radius: 8px;
-  cursor: pointer;
-}
-
-.agegate button:first-child {
-  background: orange;
   color: black;
-}
-
-.agegate button:last-child {
-  background: #333;
-  color: white;
+  font-weight: bold;
 }
