@@ -1,156 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff7a00">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0c" />
-  <title>Liquorland | Delivery San Juan</title>
-  <meta name="description" content="Liquorland — Bebidas y entrega a domicilio en San Juan. Pedidos por WhatsApp. Catálogo tipo app." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiquorStore</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" href="icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LiquorStore">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-<!-- Splash (app-like) -->
-<div id="splash" class="splash" aria-hidden="true">
+
+<!-- ================= Splash ================= -->
+<div id="splash" class="splash">
   <div class="splash__card">
-    <img class="splash__icon" src="icons/icon-192.png" alt="LiquorStore" />
+    <img class="splash__icon" src="icons/icon-192.png" alt="LiquorStore">
     <div class="splash__title">LiquorStore</div>
     <div class="splash__sub">San Juan, Argentina</div>
     <div class="splash__bar"><span></span></div>
   </div>
 </div>
-  <!-- AGE GATE (+18) -->
-  <div class="agegate" id="ageGate">
-    <div class="agegate__card" role="dialog" aria-modal="true">
-      <div class="agegate__badge">+18</div>
-      <h1 class="agegate__title">Confirmación de edad</h1>
-      <p class="agegate__text">
-        Este sitio es solo para mayores de 18 años. Al continuar, confirmás que sos mayor de edad.
-      </p>
 
-      <div class="agegate__actions">
-        <button class="btn btn--primary" id="ageYes">Soy mayor de 18</button>
-        <a class="btn btn--ghost" id="ageNo" href="https://www.google.com">Salir</a>
-      </div>
-
-      <p class="agegate__fineprint">
-        Beber con moderación. Prohibida su venta a menores. Evitá el alcohol al conducir.
-      </p>
+<!-- ================= Age Gate ================= -->
+<div class="agegate" id="ageGate">
+  <div class="agegate__card">
+    <div class="agegate__badge">+18</div>
+    <h1 class="agegate__title">Confirmación de edad</h1>
+    <p>Este sitio es solo para mayores de 18 años.</p>
+    <div class="agegate__actions">
+      <button onclick="acceptAge()">Soy mayor de 18</button>
+      <button onclick="window.location.href='https://google.com'">Salir</button>
     </div>
   </div>
+</div>
 
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <div class="topbar__brand">
-      <div class="logo">L</div>
-      <div class="brandtext">
-        <div class="brandname">Liquorland</div>
-        <div class="brandsub">San Juan, Argentina</div>
-      </div>
-    </div>
+<!-- ================= Contenido Principal ================= -->
+<div id="app">
+  <!-- Tu contenido actual vive acá -->
+</div>
 
-    <button class="cartbtn" type="button" onclick="checkout()" aria-label="Carrito">
-      <span class="carticon">🛒</span>
-      <span class="cartcount" id="cartCount">0</span>
-    </button>
-  </header>
+<script src="app.js"></script>
 
-  <main class="wrap">
+<!-- ================= Splash Script ================= -->
+<script>
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
+  if (!splash) return;
+  setTimeout(() => splash.style.opacity = "0", 500);
+  setTimeout(() => splash.remove(), 1100);
+});
+</script>
 
-    <!-- BANNER SLIDER (como Liquorland AU) -->
-    <section class="hero">
-      <div class="hero__track" id="heroTrack"></div>
-      <div class="hero__dots" id="heroDots"></div>
-    </section>
+<!-- ================= Age Gate Script ================= -->
+<script>
+function acceptAge() {
+  localStorage.setItem("ageVerified", "true");
+  document.getElementById("ageGate").style.display = "none";
+}
 
-    <!-- MODE SELECT -->
-    <section class="mode">
-      <div class="mode__row">
-        <button class="pill pill--active" type="button">🚚 Delivery</button>
-        <button class="pill" type="button">🛍️ Retiro</button>
-      </div>
-      <p class="mode__note">Para confirmar precios y disponibilidad, elegí cómo querés comprar hoy.</p>
-    </section>
+window.addEventListener("load", () => {
+  if (localStorage.getItem("ageVerified") === "true") {
+    document.getElementById("ageGate").style.display = "none";
+  }
+});
+</script>
 
-    <!-- SEARCH -->
-    <section class="search">
-      <div class="search__bar">
-        <input id="searchInput" type="search" placeholder="¿Qué te podemos conseguir?" autocomplete="off" />
-        <button id="searchBtn" type="button" class="btn btn--ghost">Buscar</button>
-      </div>
-      <div class="bullets">
-        <div>🔥 Ofertas del finde</div>
-        <div>❄️ Bebidas frías</div>
-        <div>⚡ Pedido rápido por WhatsApp</div>
-      </div>
-    </section>
+<!-- ================= Service Worker ================= -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+</script>
 
-    <!-- OFERTAS DESTACADAS (auto) -->
-    <section class="offers">
-      <div class="offers__head">
-        <h2 class="h2">🔥 Ofertas destacadas</h2>
-        <button class="btn btn--ghost btn--sm" type="button" onclick="scrollOffers(1)">Ver más</button>
-      </div>
-      <div class="offers__row" id="offersRow"></div>
-    </section>
-
-    <!-- CATEGORIES -->
-    <section class="cats">
-      <h2 class="h2">Explorá el catálogo</h2>
-      <div id="categories" class="categories"></div>
-    </section>
-
-    <!-- PRODUCTS GRID -->
-    <section class="grid">
-      <div id="products"></div>
-    </section>
-
-    <!-- CHECKOUT -->
-    <section class="checkout">
-      <button id="checkoutBtn" class="btn btn--primary btn--full" type="button" onclick="checkout()">
-        Finalizar pedido por WhatsApp
-      </button>
-      <div class="installRow">
-        <button id="installBtn" class="btn btn--ghost btn--full" type="button" style="display:none">
-          📲 Instalar Liquorland (App)
-        </button>
-      </div>
-      <p class="fine">Precios en ARS. Stock sujeto a disponibilidad.</p>
-    </section>
-
-  </main>
-
-  <!-- WhatsApp Floating Button -->
-  <a class="fab" id="fabWhats" href="#" target="_blank" rel="noopener">
-    <span class="fab__icon">💬</span>
-    <span class="fab__text">WhatsApp</span>
-  </a>
-
-  <script src="app.js"></script>
-
-  <!-- AgeGate -->
-  <script>
-    (function () {
-      const gate = document.getElementById("ageGate");
-      const yes = document.getElementById("ageYes");
-      if (!gate || !yes) return;
-
-      const ok = localStorage.getItem("ageVerified") === "true";
-      if (ok) gate.style.display = "none";
-
-      yes.addEventListener("click", () => {
-        localStorage.setItem("ageVerified", "true");
-        gate.style.display = "none";
-      });
-    })();
-  </script>
 </body>
 </html>
